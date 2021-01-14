@@ -7,8 +7,10 @@ const config = {
   projectId: "proj-dopamine",
 };
 
-export default initFirebase = () => {
+const initFirebase = () => {
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
   }
 };
+
+export default initFirebase;
