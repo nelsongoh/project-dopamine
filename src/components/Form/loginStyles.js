@@ -22,7 +22,12 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: '25%',
     marginRight: '25%',
     marginTop: '2em',
-  }
+  },
+
+  spinner: {
+    marginLeft: '50%',
+    marginRight: '50%',
+  },
 }));
 
 export default useStyles;
