@@ -1,11 +1,20 @@
+import React from 'react';
 import Headerbar from '../src/components/Headerbar';
+import PageAuth from '../src/components/Auth/PageAuth';
 
 const Dashboard = () => {
   return (
     <div>
       <Headerbar />
+      <h1>INSIDE THE DASHBOARD</h1>
     </div>
   );
 };
 
-export default Dashboard;
+const AuthDashboard = () => {
+  return (
+    <PageAuth ProtectedComponent={Dashboard} />
+  )
+}
+
+export default AuthDashboard;
