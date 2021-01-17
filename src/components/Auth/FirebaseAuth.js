@@ -6,7 +6,7 @@ import { LoginErrors } from '../../models/login';
 // Initialize the Firebase app
 initFirebase();
 
-const signInUserEmailPwd = async (email, pwd) => {
+export const signInUserEmailPwd = async (email, pwd) => {
   let signInOutcome = {
     error: LoginErrors(),
   }
@@ -44,4 +44,6 @@ const signInUserEmailPwd = async (email, pwd) => {
   return signInOutcome;
 }
 
-export default signInUserEmailPwd;
+export const signOutUser = () => {
+  firebase.auth().signOut();
+};
