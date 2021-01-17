@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useStyles from './loginStyles';
 import Content from '../../lang/index';
-import SignInUser from '../Auth/FirebaseAuth';
+import { signInUserEmailPwd } from '../Auth/FirebaseAuth';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { User, LoginErrors } from '../../models/login';
 import Router from 'next/router';
@@ -32,7 +32,7 @@ const LoginForm = () => {
     // Disable the login button
     setLoginDisabled(true);
     // Sign the user in
-    const signInOutcome = await SignInUser(userCred.email, userCred.pwd);
+    const signInOutcome = await signInUserEmailPwd(userCred.email, userCred.pwd);
     // End the spinner
     setSpinner(null);
     // Enable the login button again
