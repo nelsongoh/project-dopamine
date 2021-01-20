@@ -1,16 +1,13 @@
-import Container from '@material-ui/core/Container';
-import Headerbar from '../Headerbar';
 import styles from './loading.module.css';
+import Dialog from '@material-ui/core/Dialog';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const LoadingScreen = () => {
   return (
-    <div>
-      <Headerbar />
-      <Container>
-        <h1 className={styles.centerText}>Loading...</h1>
-      </Container>
-    </div>
-    
+    <Dialog open>
+      <CircularProgress className={styles.spinner} />
+      <p className={styles.centerText}>Loading</p>
+    </Dialog>
   );
 }
 
