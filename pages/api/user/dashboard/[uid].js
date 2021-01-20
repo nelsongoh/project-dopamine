@@ -17,10 +17,10 @@ const handler = async (req, res) => {
   const doc = await userViewsRef.get();
 
   if (doc.exists) {
-    console.log(doc.data());
+    res.status(200).json(doc.data());
+  } else {
+    res.status(400).json({});
   }
-  
-  res.status(200).json(doc.data());
 };
 
 export default handler;
