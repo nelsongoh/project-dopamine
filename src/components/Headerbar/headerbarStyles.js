@@ -8,6 +8,14 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flex: 1,
   },
+
+  normStack: {
+    zIndex: 0,
+  },
+
+  topStack: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
 }));
 
 export default useStyles;
