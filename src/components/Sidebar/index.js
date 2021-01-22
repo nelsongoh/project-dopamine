@@ -8,21 +8,22 @@ import useStyles from './sideBarStyles';
 const Sidebar = ({ content }) => {
   const classes = useStyles();
 
-  console.log(content);
-
   return (
     <Drawer
       className={classes.drawer}
       variant="permanent"
+      classes={{ paper: classes.drawerPaper }}
     >
       <Toolbar />
-        <List>
-          {content.map((text, idx) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+        <div className={classes.drawerContainer}>
+          <List>
+            {content.map((text, idx) => (
+              <ListItem button key={text}>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        </div>
     </Drawer>
   )
 };
