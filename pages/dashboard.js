@@ -11,7 +11,7 @@ const Dashboard = () => {
   const { content, isLoading, isError } = useDashboardContent(user);
 
   if (isLoading) {
-    return <LoadingScreen />;
+    return <LoadingScreen />
   }
 
   if (isError) {
@@ -23,7 +23,7 @@ const Dashboard = () => {
   Router.push(`/dashboard/${firstDashboardLink}`);
   
   return (
-    null
+    <LoadingScreen />
   );
 };
 
