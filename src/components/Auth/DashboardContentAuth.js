@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import Router from 'next/router';
+import Toolbar from '@material-ui/core/Toolbar';
 import Headerbar from '../../../src/components/Headerbar';
 import UserContext from '../../../src/contexts/user';
 import useDashboardContent from '../../../lib/useDashboardContent';
 import LoadingScreen from '../../../src/components/Loading/loading';
 import Sidebar from '../../../src/components/Sidebar';
+import useStyles from './dashboardContentAuthStyles';
 
 const DashboardContentAuth = ({ ProtectedComponent }) => {
+  const classes = useStyles();
   // Fetch the user's view of the dashboard
   const user = useContext(UserContext);
   const { content, isLoading, isError } = useDashboardContent(user);
@@ -32,10 +35,10 @@ const DashboardContentAuth = ({ ProtectedComponent }) => {
     let isContentAuth = false;
     const contentViewSuffixes = Router.pathname.split("/");
 
-    content.dashboard.views.forEach((view) => {
+    content.dashboard.views.every((view) => {
       if (view.toLowerCase() === contentViewSuffixes[contentViewSuffixes.length - 1]) {
         isContentAuth = true;
-        break;
+        return false;
       }
     })
 
@@ -44,13 +47,13 @@ const DashboardContentAuth = ({ ProtectedComponent }) => {
       Router.push("/");
     }
   }
-  console.log(Router.pathname);
   
   return (
-    <div>
+    <div className={classes.root}>
       <Headerbar isTopStack={true} />
       <Sidebar content={content.dashboard.views} />
-      <div>
+      <div className={classes.content}>
+        <Toolbar />
         <ProtectedComponent />
       </div>
     </div>
