@@ -13,7 +13,7 @@ const Headerbar = ({ isTopStack = false }) => {
     <div className={classes.root}>
       <AppBar className={stackIdx}>
         <Toolbar position="static">
-          <Typography variant="h4" className={classes.title}>{Content('en').title}</Typography>
+          <Typography variant="h4" className={classes.title}>{Content('en').headerbar.title}</Typography>
           <LoginWidget />
         </Toolbar>
       </AppBar>

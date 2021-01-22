@@ -1,5 +1,6 @@
 import Button from '@material-ui/core/Button';
 import Link from '../../../Link';
+import Content from '../../../../lang';
 
 const LoginButton = () => {
   return (
@@ -8,7 +9,7 @@ const LoginButton = () => {
       component={Link}
       href="/login"
     >
-      Login
+      {Content('en').headerbar.loginBtn.title}
     </Button>
   );
 }
