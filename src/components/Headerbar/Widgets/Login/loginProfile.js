@@ -4,6 +4,7 @@ import Icon from '@material-ui/core/Icon';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Router from 'next/router';
+import Link from '../../../Link';
 import { signOutUser } from '../../../Auth/FirebaseAuth';
 import Content from '../../../../lang';
 
@@ -28,7 +29,7 @@ const LoginProfileButton = () => {
     <div>
       <IconButton
         edge="end"
-        aria-label={Content('en').login.headerbarBtn.ariaLabel}
+        aria-label={Content('en').headerbar.loggedInBtn.ariaLabel}
         aria-haspopup="true"
         onClick={openMenu}
         color="inherit"
@@ -49,7 +50,8 @@ const LoginProfileButton = () => {
         open={isMenuOpen}
         onClose={closeMenu}
       >
-        <MenuItem onClick={logout}>{Content('en').logout.title}</MenuItem>
+        <MenuItem component={Link} href="/dashboard">{Content('en').headerbar.loggedInBtn.menu.dashboard}</MenuItem>
+        <MenuItem onClick={logout}>{Content('en').headerbar.loggedInBtn.menu.logout}</MenuItem>
       </Menu>
     </div>
     

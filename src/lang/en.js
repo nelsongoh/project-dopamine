@@ -1,22 +1,32 @@
 const Content = {
-  title: "吃 jiàk",
-  login: {
-    title: "Login",
-    form: {
-      email: {
-        label: "Email address"
+  headerbar: {
+    title: "吃 jiàk",
+    loginBtn: {
+      title: "Login"
+    },
+    loggedInBtn: {
+      ariaLabel: "Account of the current user",
+      menu: {
+        dashboard: "Dashboard",
+        logout: "Logout",
       },
-      pwd: {
-        label: "Password"
+    },
+  },
+  pages: {
+    login: {
+      form: {
+        email: {
+          label: "Email address",
+        },
+        pwd: {
+          label: "Password",
+        },
+      },
+      btn: {
+        title: "Login",
       }
     },
-    headerbarBtn: {
-      ariaLabel: "Account of the current user"
-    }
   },
-  logout: {
-    title: "Logout",
-  }
 }
 
 Object.freeze(Content);

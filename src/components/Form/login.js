@@ -48,14 +48,14 @@ const LoginForm = () => {
       </div>
       <form className={classes.root}>
         <TextField 
-          label={Content('en').login.form.email.label} 
+          label={Content('en').pages.login.form.email.label} 
           type="email" value={userCred.email} 
           onChange={(e) => { setUserCred({...userCred, email: e.target.value }) }} 
           error={errors.email.hasError}
           helperText={errors.email.msg}
         />
         <TextField 
-          label={Content('en').login.form.pwd.label}
+          label={Content('en').pages.login.form.pwd.label}
           type="password" value={userCred.pwd}
           onChange={(e) => { setUserCred({...userCred, pwd: e.target.value }) }} 
           error={errors.pwd.hasError}

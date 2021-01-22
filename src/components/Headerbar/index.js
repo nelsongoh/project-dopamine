@@ -5,13 +5,15 @@ import Content from '../../lang';
 import useStyles from './headerbarStyles';
 import LoginWidget from './Widgets/Login';
 
-const Headerbar = () => {
+const Headerbar = ({ isTopStack = false }) => {
   const classes = useStyles();
+  const stackIdx = isTopStack ? classes.topStack : classes.normStack;
+
   return (
     <div className={classes.root}>
-      <AppBar>
+      <AppBar className={stackIdx}>
         <Toolbar position="static">
-          <Typography variant="h4" className={classes.title}>{Content('en').title}</Typography>
+          <Typography variant="h4" className={classes.title}>{Content('en').headerbar.title}</Typography>
           <LoginWidget />
         </Toolbar>
       </AppBar>
