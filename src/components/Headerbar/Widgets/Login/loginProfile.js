@@ -3,7 +3,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Router from 'next/router';
 import Link from '../../../Link';
 import { signOutUser } from '../../../Auth/FirebaseAuth';
 import Content from '../../../../lang';
@@ -22,7 +21,6 @@ const LoginProfileButton = () => {
 
   const logout = () => {
     signOutUser();
-    Router.push("/");
   }
 
   return (
