@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import Router from 'next/router';
 import Toolbar from '@material-ui/core/Toolbar';
 import Headerbar from '../../../src/components/Headerbar';
-import UserContext from '../../../src/contexts/user';
+import LoginContext from '../../contexts/login';
 import useDashboardContent from '../../../lib/useDashboardContent';
 import LoadingScreen from '../../../src/components/Loading/loading';
 import Sidebar from '../../../src/components/Sidebar';
@@ -11,7 +11,7 @@ import useStyles from './dashboardContentAuthStyles';
 const DashboardContentAuth = ({ ProtectedComponent }) => {
   const classes = useStyles();
   // Fetch the user's view of the dashboard
-  const user = useContext(UserContext);
+  const { user } = useContext(LoginContext);
   const { content, isLoading, isError } = useDashboardContent(user);
 
   if (isLoading) {
