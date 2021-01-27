@@ -11,7 +11,7 @@ import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import useStyles from './calendarStyles';
 import useCalendarOverlay from '../../../lib/useCalendarOverlay';
-import UserContext from '../../contexts/user';
+import LoginContext from '../../contexts/login';
 import LoadingScreen from '../../components/Loading/loading';
 
 const generateMthViewDates = (dateRef) => {
@@ -68,7 +68,7 @@ const Calendar = () => {
     setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() - 1, currDate.getDate()));
   };
 
-  const user = useContext(UserContext);
+  const { user } = useContext(LoginContext);
   // The use of this reference is to help determine if an API fetch call is necessary
   const overlayInfo = useRef(null);
   const { content, isLoading, isError } = useCalendarOverlay(user, overlayInfo.current);
