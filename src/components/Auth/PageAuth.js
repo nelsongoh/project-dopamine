@@ -1,22 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import Router from 'next/router';
-import UserContext from '../../contexts/user';
+import LoginContext from '../../contexts/login';
 import LoadingScreen from '../Loading/loading';
 import DashboardContentAuth from './DashboardContentAuth';
 
 const PageAuth = ({ ProtectedComponent, isContentProtected = false }) => {
-  const user = useContext(UserContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const { user, isLoggingIn } = useContext(LoginContext);
 
   useEffect(() => {
-    if (user == null) {
+    if (user === null && isLoggingIn === false) {
       Router.push('/login');
-    } else {
-      setIsLoading(false); 
     }
-  }, [user]);
+  }, [user, isLoggingIn]);
 
-  if (isLoading) {
+  if (isLoggingIn) {
     return <LoadingScreen />;
   };
 
