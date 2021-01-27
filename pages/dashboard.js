@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import PageAuth from '../src/components/Auth/PageAuth';
-import UserContext from '../src/contexts/user';
+import LoginContext from '../src/contexts/login';
 import useDashboardContent from '../lib/useDashboardContent';
 import LoadingScreen from '../src/components/Loading/loading';
 import Router from 'next/router';
 
 const Dashboard = () => {
   // Fetch the user's view of the dashboard
-  const user = useContext(UserContext);
+  const { user, isLoggingIn } = useContext(LoginContext);
   const { content, isLoading, isError } = useDashboardContent(user);
 
-  if (isLoading) {
+  if (isLoading || isLoggingIn) {
     return <LoadingScreen />
   }
 
