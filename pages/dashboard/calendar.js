@@ -1,14 +1,16 @@
+import React from 'react';
 import PageAuth from '../../src/components/Auth/PageAuth';
+import Calendar from '../../src/components/Calendar/calendar';
 
-const Calendar = () => {
+const DashboardCalendar = () => {
   return (
-    <h1>This is a calendar</h1>
-  )
+    <Calendar />
+  );
 };
 
 const AuthCalendar = () => {
   return (
-    <PageAuth ProtectedComponent={Calendar} isContentProtected={true} />
+    <PageAuth ProtectedComponent={DashboardCalendar} isContentProtected={true} />
   )
 }
 
