@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import useStyles from './sideBarStyles';
+import Link from '../Link';
 
 const Sidebar = ({ content }) => {
   const classes = useStyles();
@@ -18,7 +19,7 @@ const Sidebar = ({ content }) => {
         <div className={classes.drawerContainer}>
           <List>
             {content.map((text, idx) => (
-              <ListItem button key={text}>
+              <ListItem button component={Link} href={`/dashboard/${text.toLowerCase()}`} key={text}>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
