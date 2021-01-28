@@ -10,9 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
 import useStyles from './calendarStyles';
-import useCalendarOverlay from '../../../lib/useCalendarOverlay';
-import LoginContext from '../../contexts/login';
-import LoadingScreen from '../../components/Loading/loading';
 
 const generateMthViewDates = (dateRef) => {
   const firstOfMth = new Date(dateRef.getFullYear(), dateRef.getMonth(), 1);
@@ -51,50 +48,22 @@ const generateMthViewEvents = (eventInfo, mthViewDates) => {
   return mthViewDates;
 };
 
-const Calendar = () => {
+const Calendar = ({ currDate, setNextMth, setPrevMth, content }) => {
   const classes = useStyles();
 
   const todayDate = new Date();
-  const [currDate, setCurrDate] = useState(new Date());
 
   const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const [mthDates, setMthDates] = useState(generateMthViewDates(currDate));
 
-  const setNextMth = () => {
-    setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() + 1, currDate.getDate()));
-    // setMthDates()
-  };
-  const setPrevMth = () => {
-    setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() - 1, currDate.getDate()));
-  };
-
-  const { user } = useContext(LoginContext);
-  // The use of this reference is to help determine if an API fetch call is necessary
-  const overlayInfo = useRef(null);
-  const { content, isLoading, isError } = useCalendarOverlay(user, overlayInfo.current);
-
   useEffect(() => {
-    if (overlayInfo.current !== null) {
+    if (content !== null && typeof(content) !== 'undefined') {
       const newMthDates = generateMthViewDates(currDate);
-      setMthDates(generateMthViewEvents(overlayInfo.current, newMthDates));
+      setMthDates(generateMthViewEvents(content, newMthDates));
     } else {
       setMthDates(generateMthViewDates(currDate));
     }
   }, [currDate]);
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
-  
-  if (isError) {
-    console.log('An error has occurred while trying to retrieve the calendar overlay');
-  } else {
-    // If the content retrieved is not undefined and we do not currently have any overlay info, we update it
-    if (overlayInfo.current === null && typeof(content) !== 'undefined') {
-      overlayInfo.current = content;
-      setMthDates(generateMthViewEvents(overlayInfo.current, mthDates));
-    }
-  }
 
   return (
     <div className={classes.root}>
