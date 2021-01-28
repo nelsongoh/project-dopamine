@@ -26,6 +26,25 @@ const Content = {
         title: "Login",
       }
     },
+    calendar: {
+      luckyDirections: {
+        title: "Lucky Directions",
+        directionBtns: {
+          N: "N",
+          NE: "NE",
+          NW: "NW",
+          S: "S",
+          SE: "SE",
+          SW: "SW",
+          E: "E",
+          W: "W",
+          Central: "Central",
+        },
+      },
+      luckyColors: {
+        title: "Lucky Colours",
+      },
+    },
   },
 }
 
