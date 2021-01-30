@@ -1,4 +1,15 @@
 const Content = {
+  reauth: {
+    title: "Re-authenticate your credentials",
+    contentMsg: "Please re-enter your current login details to confirm your action.",
+    emailField: "Email",
+    pwdField: "Current password",
+    errorMsg: "Invalid credentials",
+    btns: {
+      cancel: "Cancel",
+      submit: "Submit",
+    },
+  },
   headerbar: {
     title: "吃 jiàk",
     loginBtn: {
@@ -43,6 +54,20 @@ const Content = {
       },
       luckyColors: {
         title: "Lucky Colours",
+      },
+    },
+    profile: {
+      textFields: {
+        name: "Name",
+        email: "Email address",
+        newPwd: "New password",
+        reEnterPwd: "Re-enter password",
+        pwdErrorMsg: "Your new passwords don't match",
+      },
+      snackbar: {
+        success: {
+          msg: "Password successfully changed",
+        },
       },
     },
   },
