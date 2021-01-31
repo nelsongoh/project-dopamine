@@ -4,7 +4,7 @@ import LoginContext from '../../contexts/login';
 import LoadingScreen from '../Loading/loading';
 import DashboardContentAuth from './DashboardContentAuth';
 
-const PageAuth = ({ ProtectedComponent, isContentProtected = false }) => {
+const PageAuth = ({ ProtectedComponent, isContentProtected = false, permType = -1 }) => {
   const { user, isLoggingIn } = useContext(LoginContext);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const PageAuth = ({ ProtectedComponent, isContentProtected = false }) => {
 
   if (isContentProtected) {
     return (
-      <DashboardContentAuth ProtectedComponent={ProtectedComponent} />
+      <DashboardContentAuth ProtectedComponent={ProtectedComponent} permType={permType} />
     );
   };
 
