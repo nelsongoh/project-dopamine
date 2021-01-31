@@ -12,6 +12,9 @@ const Content = {
   },
   headerbar: {
     title: "吃 jiàk",
+    menuBtn: {
+      ariaLabel: "Open sidebar",
+    },
     loginBtn: {
       title: "Login"
     },
