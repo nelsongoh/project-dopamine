@@ -45,6 +45,7 @@ const DashboardContentAuth = ({ ProtectedComponent }) => {
     if (!isContentAuth) {
       console.log("USER NOT AUTHORIZED TO VIEW PAGE.");
       Router.push("/");
+      return <LoadingScreen />;
     }
   }
   
