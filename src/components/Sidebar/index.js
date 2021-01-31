@@ -7,14 +7,20 @@ import useStyles from './sideBarStyles';
 import Link from '../Link';
 import routes from '../../routes';
 
-const Sidebar = ({ content }) => {
+const Sidebar = ({ content, type, open, onClose, container }) => {
   const classes = useStyles();
 
   return (
     <Drawer
       className={classes.drawer}
-      variant="permanent"
+      variant={type === "mobile" ? "temporary" : "permanent"}
+      open={type === "mobile" ? open : true}
+      onClose={type === "mobile" ? onClose : null}
       classes={{ paper: classes.drawerPaper }}
+      container={container}
+      ModalProps={{
+        keepMounted: type === "mobile" ? true : false,
+      }}
     >
       <Toolbar />
         <div className={classes.drawerContainer}>
