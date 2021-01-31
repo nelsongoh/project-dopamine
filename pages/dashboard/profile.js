@@ -3,6 +3,7 @@ import PageAuth from '../../src/components/Auth/PageAuth';
 import Grid from '@material-ui/core/Grid';
 import ProfileImage from '../../src/components/ProfileImage';
 import ProfileForm from '../../src/components/Form/Profile';
+import permissions from '../../src/permissions';
 
 const DashboardProfile = () => {
   return (
@@ -17,7 +18,7 @@ const DashboardProfile = () => {
 
 const AuthProfile = () => {
   return (
-    <PageAuth ProtectedComponent={DashboardProfile} isContentProtected={true} />
+    <PageAuth ProtectedComponent={DashboardProfile} isContentProtected={true} permType={permissions.profile} />
   )
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import PageAuth from '../../src/components/Auth/PageAuth';
+import permissions from '../../src/permissions';
 
 const DashboardIG = () => {
   return (
@@ -9,7 +10,7 @@ const DashboardIG = () => {
 
 const AuthIG = () => {
   return (
-    <PageAuth ProtectedComponent={DashboardIG} isContentProtected={true} />
+    <PageAuth ProtectedComponent={DashboardIG} isContentProtected={true} permType={permissions.ig} />
   )
 };
 
