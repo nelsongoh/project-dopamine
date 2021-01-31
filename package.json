@@ -2,16 +2,20 @@
   "name": "project-dopamine",
   "version": "0.1.0",
   "private": true,
+  "main": "function.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "npm run build && cross-env NODE_ENV=production firebase deploy"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.57",
+    "cross-env": "^7.0.3",
     "firebase": "^8.2.2",
     "firebase-admin": "^9.4.2",
+    "firebase-functions": "^3.13.1",
     "next": "10.0.5",
     "react": "17.0.1",
     "react-dom": "17.0.1",
