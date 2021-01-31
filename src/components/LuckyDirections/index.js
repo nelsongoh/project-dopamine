@@ -54,8 +54,8 @@ const LuckyDirections = ({ content, currDate }) => {
 
   return (
     <Grid container spacing={3} direction="column">
-      <Grid container item justify="center">
-        <Typography variant="h3">{Content('en').pages.calendar.luckyDirections.title}</Typography>
+      <Grid container item justify="center" alignItems="center">
+        <Typography variant="h3" className={classes.titles}>{Content('en').pages.calendar.luckyDirections.title}</Typography>
       </Grid>
       <Grid container item justify="center" className={classes.directions}>
         {Object.keys(btnLabels).map((label, idx) => (

@@ -53,7 +53,7 @@ const Calendar = ({ currDate, setNextMth, setPrevMth, content }) => {
 
   const todayDate = new Date();
 
-  const daysOfTheWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const daysOfTheWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const [mthDates, setMthDates] = useState(generateMthViewDates(currDate));
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const Calendar = ({ currDate, setNextMth, setPrevMth, content }) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3} className={classes.calendarToolbar}>
-        <Grid item xs className={classes.centerGridItem}>
+        <Grid item xs={3} className={classes.centerGridItem}>
           <IconButton onClick={setPrevMth}>
             <Icon>chevron_left</Icon>
           </IconButton>
@@ -78,7 +78,7 @@ const Calendar = ({ currDate, setNextMth, setPrevMth, content }) => {
             {currDate.toLocaleDateString('en-SG', { month: 'long', year: 'numeric' })}
           </Typography>
         </Grid>
-        <Grid item xs className={classes.centerGridItem}>
+        <Grid item xs={3} className={classes.centerGridItem}>
           <IconButton onClick={setNextMth}>
             <Icon>chevron_right</Icon>
           </IconButton>

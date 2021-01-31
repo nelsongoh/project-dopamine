@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(0.5),
     },
   },
+
+  titles: {
+    textAlign: 'center',
+  },
 }));
 
 export default useStyles;
