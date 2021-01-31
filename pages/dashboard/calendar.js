@@ -38,10 +38,10 @@ const DashboardCalendar = () => {
 
   return (
     <Grid container spacing={3} justify="center">
-      <Grid item xs={6}>
+      <Grid item xs={12} md={6}>
         <Calendar content={overlayInfo.current} currDate={currDate} setNextMth={setNextMth} setPrevMth={setPrevMth} />
       </Grid>
-      <Grid container item xs={6} direction="column" alignItems="center" spacing={5}>
+      <Grid container item md={6} direction="column" alignItems="center" spacing={5}>
         <Grid container item alignItems="stretch">
           <LuckyDirections content={overlayInfo.current.directions} currDate={currDate} />
         </Grid>
