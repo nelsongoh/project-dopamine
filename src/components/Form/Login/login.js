@@ -6,6 +6,7 @@ import useStyles from './loginStyles';
 import Content from '../../../lang/index';
 import { signInUserEmailPwd } from '../../Auth/FirebaseAuth';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Grid from '@material-ui/core/Grid';
 import { User, LoginErrors } from '../../../models/login';
 import Router from 'next/router';
 import LoginContext from '../../../contexts/login';
@@ -52,20 +53,28 @@ const LoginForm = () => {
         {spinner}
       </div>
       <form className={classes.root}>
-        <TextField 
-          label={Content('en').pages.login.form.email.label} 
-          type="email" value={userCred.email} 
-          onChange={(e) => { setUserCred({...userCred, email: e.target.value }); }} 
-          error={errors.email.hasError}
-          helperText={errors.email.msg}
-        />
-        <TextField 
-          label={Content('en').pages.login.form.pwd.label}
-          type="password" value={userCred.pwd}
-          onChange={(e) => { setUserCred({...userCred, pwd: e.target.value }) }} 
-          error={errors.pwd.hasError}
-          helperText={errors.pwd.msg}
-        />
+        <Grid container direction="column">
+          <Grid item>
+            <TextField 
+              label={Content('en').pages.login.form.email.label} 
+              type="email" value={userCred.email} 
+              onChange={(e) => { setUserCred({...userCred, email: e.target.value }); }} 
+              error={errors.email.hasError}
+              helperText={errors.email.msg}
+              fullWidth
+            />
+          </Grid>
+          <Grid item>
+            <TextField 
+              label={Content('en').pages.login.form.pwd.label}
+              type="password" value={userCred.pwd}
+              onChange={(e) => { setUserCred({...userCred, pwd: e.target.value }) }} 
+              error={errors.pwd.hasError}
+              helperText={errors.pwd.msg}
+              fullWidth
+            />
+          </Grid>
+        </Grid>
       </form>
       <Button
         variant="contained"
