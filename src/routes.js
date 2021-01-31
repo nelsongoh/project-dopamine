@@ -2,8 +2,10 @@
 const routes = {
   public: {
     index: "/",
+    login: "/login",
   },
   protected: {
+    dashboard: "/dashboard",
     0: {
       title: "Calendar",
       url: "/dashboard/calendar",
