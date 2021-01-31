@@ -17,7 +17,7 @@ const Dashboard = () => {
 
   if (isError) {
     console.log("There's an error.");
-    Router.push("/");
+    Router.push(routes.public.index);
   }
 
   const firstDashboardLink = routes.protected[content.dashboard.views[0]].url;

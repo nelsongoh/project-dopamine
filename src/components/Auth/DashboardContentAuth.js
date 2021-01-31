@@ -7,6 +7,7 @@ import useDashboardContent from '../../../lib/useDashboardContent';
 import LoadingScreen from '../../../src/components/Loading/loading';
 import Sidebar from '../../../src/components/Sidebar';
 import useStyles from './dashboardContentAuthStyles';
+import routes from '../../routes';
 
 const DashboardContentAuth = ({ ProtectedComponent, permType }) => {
   const classes = useStyles();
@@ -20,17 +21,17 @@ const DashboardContentAuth = ({ ProtectedComponent, permType }) => {
 
   if (isError) {
     console.log("There's an error in the DashboardContentAuth component.");
-    Router.push("/");
+    Router.push(routes.public.index);
   }
 
   // Check to see if the page that the user wants to access is part of their authorization
   // If there is no content available, consider it an error
   if (content == null || typeof(content) == 'undefined') {
     console.log("Content is null or undefined in DashboardContentAuth");
-    Router.push("/");
+    Router.push(routes.public.index);
   } else if (content.dashboard.views.length == 0) {
     console.log("Content dashboard views length is 0");
-    Router.push("/");
+    Router.push(routes.public.index);
   } else {
     let isContentAuth = false;
 
@@ -43,7 +44,7 @@ const DashboardContentAuth = ({ ProtectedComponent, permType }) => {
 
     if (!isContentAuth) {
       console.log("USER NOT AUTHORIZED TO VIEW PAGE.");
-      Router.push("/");
+      Router.push(routes.public.index);
       return <LoadingScreen />;
     }
   }
