@@ -7,6 +7,7 @@ import LuckyDirections from '../../src/components/LuckyDirections';
 import useCalendarOverlay from '../../lib/useCalendarOverlay';
 import LoadingScreen from '../../src/components/Loading/loading';
 import LoginContext from '../../src/contexts/login';
+import permissions from '../../src/permissions';
 
 const DashboardCalendar = () => {
   const [currDate, setCurrDate] = useState(new Date());
@@ -54,7 +55,7 @@ const DashboardCalendar = () => {
 
 const AuthCalendar = () => {
   return (
-    <PageAuth ProtectedComponent={DashboardCalendar} isContentProtected={true} />
+    <PageAuth ProtectedComponent={DashboardCalendar} isContentProtected={true} permType={permissions.calendar} />
   )
 }
 

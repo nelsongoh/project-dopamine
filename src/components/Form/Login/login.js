@@ -9,6 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { User, LoginErrors } from '../../../models/login';
 import Router from 'next/router';
 import LoginContext from '../../../contexts/login';
+import routes from '../../../routes';
 
 const LoginForm = () => {
   const classes = useStyles();
@@ -21,7 +22,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     if (user !== null) {
-      Router.push("/dashboard");
+      Router.push(routes.protected.dashboard);
     }
   }, [user])
 

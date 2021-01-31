@@ -4,6 +4,7 @@ import LoginContext from '../src/contexts/login';
 import useDashboardContent from '../lib/useDashboardContent';
 import LoadingScreen from '../src/components/Loading/loading';
 import Router from 'next/router';
+import routes from '../src/routes';
 
 const Dashboard = () => {
   // Fetch the user's view of the dashboard
@@ -16,11 +17,11 @@ const Dashboard = () => {
 
   if (isError) {
     console.log("There's an error.");
-    Router.push("/");
+    Router.push(routes.public.index);
   }
 
-  const firstDashboardLink = (content.dashboard.views[0]).toLowerCase();
-  Router.push(`/dashboard/${firstDashboardLink}`);
+  const firstDashboardLink = routes.protected[content.dashboard.views[0]].url;
+  Router.push(`${firstDashboardLink}`);
   
   return (
     <LoadingScreen />
