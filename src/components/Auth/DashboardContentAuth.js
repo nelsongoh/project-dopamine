@@ -8,7 +8,7 @@ import LoadingScreen from '../../../src/components/Loading/loading';
 import Sidebar from '../../../src/components/Sidebar';
 import useStyles from './dashboardContentAuthStyles';
 
-const DashboardContentAuth = ({ ProtectedComponent }) => {
+const DashboardContentAuth = ({ ProtectedComponent, permType }) => {
   const classes = useStyles();
   // Fetch the user's view of the dashboard
   const { user } = useContext(LoginContext);
@@ -33,10 +33,9 @@ const DashboardContentAuth = ({ ProtectedComponent }) => {
     Router.push("/");
   } else {
     let isContentAuth = false;
-    const contentViewSuffixes = Router.pathname.split("/");
 
     for (let i = 0; i < content.dashboard.views.length; i += 1) {
-      if (content.dashboard.views[i].toLowerCase() === contentViewSuffixes[contentViewSuffixes.length - 1]) {
+      if (content.dashboard.views[i] === permType) {
         isContentAuth = true;
         break;
       }
