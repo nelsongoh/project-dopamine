@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Router from 'next/router';
 import Toolbar from '@material-ui/core/Toolbar';
+import Hidden from '@material-ui/core/Hidden';
 import Headerbar from '../../../src/components/Headerbar';
 import LoginContext from '../../contexts/login';
 import useDashboardContent from '../../../lib/useDashboardContent';
@@ -14,6 +15,12 @@ const DashboardContentAuth = ({ ProtectedComponent, permType }) => {
   // Fetch the user's view of the dashboard
   const { user } = useContext(LoginContext);
   const { content, isLoading, isError } = useDashboardContent(user);
+
+  const container = typeof(window) !== 'undefined' ? () => window.document.body : undefined;
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  const toggleMobileSidebar = () => {
+    setMobileSidebarOpen(!mobileSidebarOpen);
+  }
 
   if (isLoading) {
     return <LoadingScreen />;
@@ -48,11 +55,25 @@ const DashboardContentAuth = ({ ProtectedComponent, permType }) => {
       return <LoadingScreen />;
     }
   }
-  
+
   return (
     <div className={classes.root}>
-      <Headerbar isTopStack={true} />
-      <Sidebar content={content.dashboard.views} />
+      <Headerbar isTopStack={true} toggleSidebar={toggleMobileSidebar} />
+      <Hidden mdUp>
+        <Sidebar
+          content={content.dashboard.views}
+          type="mobile"
+          open={mobileSidebarOpen}
+          onClose={toggleMobileSidebar}
+          container={container}
+        />
+      </Hidden>
+      <Hidden smDown>
+        <Sidebar
+          content={content.dashboard.views}
+          type="perm"
+        />
+      </Hidden>
       <div className={classes.content}>
         <Toolbar />
         <ProtectedComponent />
