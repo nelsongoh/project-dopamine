@@ -113,49 +113,51 @@ const ProfileForm = () => {
           {Content('en').pages.profile.snackbar.success.msg}
         </Alert>
       </Snackbar>
-      <Grid item>
-        <TextField
-          variant="outlined"
-          InputProps={{ readOnly: true }}
-          className={classes.fieldWidth}
-          label={Content('en').pages.profile.textFields.name}
-          value={user.displayName || "???"}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          variant="outlined"
-          InputProps={{ readOnly: true }}
-          className={classes.fieldWidth}
-          label={Content('en').pages.profile.textFields.email}
-          value={user.email}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          variant="outlined"
-          className={classes.fieldWidth}
-          label={Content('en').pages.profile.textFields.newPwd}
-          value={chngPwd.newPwd}
-          onChange={(event) => { setChngPwd({...chngPwd, newPwd: event.target.value}) }}
-          error={editProfileErrors.newPwd.hasError}
-          helperText={editProfileErrors.newPwd.errorMsg}
-        />
-      </Grid>
-      <Grid item>
-        <TextField
-          variant="outlined"
-          className={classes.fieldWidth}
-          label={Content('en').pages.profile.textFields.reEnterPwd}
-          value={chngPwd.reEnterPwd}
-          onChange={(event) => { setChngPwd({...chngPwd, reEnterPwd: event.target.value}) }}
-          error={editProfileErrors.reEnterPwd.hasError}
-          helperText={editProfileErrors.reEnterPwd.errorMsg}
-        />
-      </Grid>
-      <Grid item>
-        <Button variant="outlined" color="primary" className={classes.btn} onClick={resetFields}>Cancel</Button>
-        <Button variant="contained" color="primary" className={classes.btn} onClick={submitPwdChng}>Save</Button>
+      <Grid container item className={classes.formWidth} spacing={3}>
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            InputProps={{ readOnly: true }}
+            label={Content('en').pages.profile.textFields.name}
+            value={user.displayName || "???"}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            InputProps={{ readOnly: true }}
+            label={Content('en').pages.profile.textFields.email}
+            value={user.email}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            label={Content('en').pages.profile.textFields.newPwd}
+            value={chngPwd.newPwd}
+            onChange={(event) => { setChngPwd({...chngPwd, newPwd: event.target.value}) }}
+            error={editProfileErrors.newPwd.hasError}
+            helperText={editProfileErrors.newPwd.errorMsg}
+            fullWidth
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            variant="outlined"
+            label={Content('en').pages.profile.textFields.reEnterPwd}
+            value={chngPwd.reEnterPwd}
+            onChange={(event) => { setChngPwd({...chngPwd, reEnterPwd: event.target.value}) }}
+            error={editProfileErrors.reEnterPwd.hasError}
+            helperText={editProfileErrors.reEnterPwd.errorMsg}
+            fullWidth
+          />
+        </Grid>
+        <Grid container item xs={12} justify="center" alignItems="center">
+          <Button variant="outlined" color="primary" className={classes.btn} onClick={resetFields}>Cancel</Button>
+          <Button variant="contained" color="primary" className={classes.btn} onClick={submitPwdChng}>Save</Button>
+        </Grid>
       </Grid>
     </Fragment>
   )
