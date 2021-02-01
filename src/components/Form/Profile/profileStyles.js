@@ -1,8 +1,13 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  fieldWidth: {
-    width: '48ch',
+  formWidth: {
+    [theme.breakpoints.down('sm')]: {
+      width: '48ch',
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '48ch',
+    },
   },
 
   btn: {
