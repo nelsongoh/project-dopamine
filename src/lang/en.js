@@ -27,6 +27,31 @@ const Content = {
     },
   },
   pages: {
+    admin: {
+      users: {
+        tabs: {
+          create: "Create User",
+          manage: "Manage Users"
+        },
+        create: {
+          fields: {
+            firstName: "First name",
+            lastName: "Last name",
+            email: "Email address",
+            permissions: {
+              title: "Permissions",
+            },
+          },
+          btns: {
+            cancel: "Cancel",
+            submit: "Submit",
+          },
+          snackbar: {
+            success: "User successfully created!",
+          },
+        },
+      },
+    },
     login: {
       form: {
         email: {

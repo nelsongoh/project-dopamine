@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Hidden from '@material-ui/core/Hidden';
 import Headerbar from '../../../src/components/Headerbar';
 import LoginContext from '../../contexts/login';
-import useDashboardContent from '../../../lib/useDashboardContent';
+import useDashboardContent from '../../../lib/client/useDashboardContent';
 import LoadingScreen from '../../../src/components/Loading/loading';
 import Sidebar from '../../../src/components/Sidebar';
 import useStyles from './dashboardContentAuthStyles';
