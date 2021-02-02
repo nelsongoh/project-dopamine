@@ -12,10 +12,10 @@ import permissions from '../../src/permissions';
 const DashboardCalendar = () => {
   const [currDate, setCurrDate] = useState(new Date());
   const setNextMth = () => {
-    setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() + 1, currDate.getDate()));
+    setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() + 1, 1));
   };
   const setPrevMth = () => {
-    setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() - 1, currDate.getDate()));
+    setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() - 1, 1));
   };
 
   const { user } = useContext(LoginContext);
