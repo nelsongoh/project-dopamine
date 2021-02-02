@@ -4,7 +4,7 @@ import PageAuth from '../../src/components/Auth/PageAuth';
 import Calendar from '../../src/components/Calendar/calendar';
 import LuckyColors from '../../src/components/LuckyColors';
 import LuckyDirections from '../../src/components/LuckyDirections';
-import useCalendarOverlay from '../../lib/useCalendarOverlay';
+import useCalendarOverlay from '../../lib/client/useCalendarOverlay';
 import LoadingScreen from '../../src/components/Loading/loading';
 import LoginContext from '../../src/contexts/login';
 import permissions from '../../src/permissions';

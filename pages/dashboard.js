@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PageAuth from '../src/components/Auth/PageAuth';
 import LoginContext from '../src/contexts/login';
-import useDashboardContent from '../lib/useDashboardContent';
+import useDashboardContent from '../lib/client/useDashboardContent';
 import LoadingScreen from '../src/components/Loading/loading';
 import Router from 'next/router';
 import routes from '../src/routes';
