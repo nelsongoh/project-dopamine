@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -25,10 +26,24 @@ const Sidebar = ({ content, type, open, onClose, container }) => {
       <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {content.map((permission, idx) => (
-              <ListItem button component={Link} href={`${routes.protected[permission].url}`} key={idx}>
-                <ListItemText primary={routes.protected[permission].title} />
-              </ListItem>
+            {content.map((permission) => (
+              routes.protected[permission].sublinks.length > 0 ?
+                (
+                  <Fragment key={Math.random()}>
+                    <ListItem>
+                      <ListItemText primary={routes.protected[permission].title}/>
+                    </ListItem>
+                    {(routes.protected[permission].sublinks).map((sublink) => (
+                      <ListItem button component={Link} href={`${sublink.url}`} key={Math.random()} className={classes.subLink}>
+                        <ListItemText primary={sublink.title} />
+                      </ListItem>
+                    ))}
+                  </Fragment>
+                ) : (
+                  <ListItem button component={Link} href={`${routes.protected[permission].url}`} key={Math.random()}>
+                    <ListItemText primary={routes.protected[permission].title} />
+                  </ListItem>
+                )
             ))}
           </List>
         </div>
