@@ -9,14 +9,24 @@ const routes = {
     0: {
       title: "Calendar",
       url: "/dashboard/calendar",
+      sublinks: [],
     },
     1: {
       title: "Profile",
       url: "/dashboard/profile",
+      sublinks: [],
     },
     2: {
       title: "Instagram",
       url: "/dashboard/ig",
+      sublinks: [],
+    },
+    1337: {
+      title: "Admin",
+      url: "/dashboard/admin",
+      sublinks: [
+        { title: "Users", "url": "/dashboard/admin/users" }
+      ],
     },
   },
 };
