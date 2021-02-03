@@ -50,6 +50,26 @@ const Content = {
             success: "User successfully created!",
           },
         },
+        manage: {
+          cols: {
+            headers: {
+              email: "Email address",
+              firstName: "First name",
+              lastName: "Last name",
+              accStatus: {
+                title: "Account status",
+                types: {
+                  enabled: "Enabled",
+                  disabled: "Disabled",
+                },
+              },
+              edit: {
+                title: "Edit user",
+                btn: "Edit",
+              },
+            },
+          },
+        },
       },
     },
     login: {
