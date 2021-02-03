@@ -22,8 +22,8 @@ const handler = async (req, res) => {
           }
           break;
 
-        case "GET":
-          res.status(200).json({});
+        default:
+          res.status(404).json({});
           break;
       }
     } else {

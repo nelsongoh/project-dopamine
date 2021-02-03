@@ -7,6 +7,7 @@ import PageAuth from '../../../src/components/Auth/PageAuth';
 import permissions from '../../../src/permissions';
 import Content from '../../../src/lang';
 import RegisterNewUser from '../../../src/components/Form/Register';
+import ManageUsers from '../../../src/components/Form/Manage';
 
 const TabPanel = ({ ChildComponent, value, index }) => (
   value === index ? <ChildComponent /> : null
@@ -33,6 +34,7 @@ const DashboardAdminUsers = () => {
         <Tab label={Content('en').pages.admin.users.tabs.manage} value={1} />
       </Tabs>
       <TabPanel ChildComponent={RegisterNewUser} value={currTab} index={0} />
+      <TabPanel ChildComponent={ManageUsers} value={currTab} index={1} />
     </Fragment>
   );
 };

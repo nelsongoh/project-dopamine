@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
+    "@material-ui/data-grid": "^4.0.0-alpha.18",
     "@material-ui/lab": "^4.0.0-alpha.57",
     "axios": "^0.21.1",
     "cross-env": "^7.0.3",
