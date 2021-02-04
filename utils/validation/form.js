@@ -1,4 +1,4 @@
-import { RegisterUser } from '../../src/models/register';
+import { User } from '../../src/models/register';
 
 export const validateEditProfile = (pwdOne, pwdTwo) => {
   if (pwdOne === pwdTwo) {
@@ -9,7 +9,7 @@ export const validateEditProfile = (pwdOne, pwdTwo) => {
 };
 
 export const validateAdminCreateUser = (details) => {
-  const userDetails = {...RegisterUser(), ...details};
+  const userDetails = {...User(), ...details};
 
   return Object.keys(userDetails).every((objKey) => {
     if (typeof(userDetails[objKey]) === "string") {
