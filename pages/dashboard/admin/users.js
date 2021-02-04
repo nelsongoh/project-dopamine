@@ -6,7 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import PageAuth from '../../../src/components/Auth/PageAuth';
 import permissions from '../../../src/permissions';
 import Content from '../../../src/lang';
-import RegisterNewUser from '../../../src/components/Form/Register';
+import RegisterNewUser from '../../../src/components/Register';
 import ManageUsers from '../../../src/components/Form/Manage';
 
 const TabPanel = ({ ChildComponent, value, index }) => (
