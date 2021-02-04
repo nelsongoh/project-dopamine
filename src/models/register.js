@@ -1,4 +1,4 @@
-export const RegisterUser = (
+export const User = (
   firstName = "",
   lastName = "",
   email = "",
@@ -9,7 +9,7 @@ export const RegisterUser = (
   }
 };
 
-export const RegisterUserErrors = () => {
+export const UserErrors = () => {
   return {
     firstName: {
       hasError: false,
