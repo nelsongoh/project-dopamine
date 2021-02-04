@@ -10,7 +10,8 @@ import UserPermissions from '../../Form/Widgets/Permissions';
 const UserForm = ({ 
   userDetails, updateFirstName, updateLastName, updateEmail,
   updatePermissions, clearForm, submitForm, isCancelDisabled,
-  isSubmitDisabled, errors, clearPermissionsToggle,
+  isSubmitDisabled, errors, clearPermissionsToggle, setMaxWidth = false,
+  existingPerms,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -24,7 +25,7 @@ const UserForm = ({
       className={classes.formDiv}
       spacing={3}
     >
-      <Grid container item md={6} spacing={isMobileView ? 3 : 0}>
+      <Grid container item md={setMaxWidth ? 12 : 6} spacing={isMobileView ? 3 : 0}>
         <Grid xs={12} md={6} item>
           <TextField
             variant="outlined"
@@ -49,7 +50,7 @@ const UserForm = ({
           />
         </Grid>
       </Grid>
-      <Grid container item md={6}>
+      <Grid container item md={setMaxWidth ? 12 : 6}>
         <TextField
           variant="outlined"
           label={Content('en').pages.admin.users.create.fields.email}
@@ -60,13 +61,14 @@ const UserForm = ({
           fullWidth
         />
       </Grid>
-      <Grid container item md={6} justify="center">
+      <Grid container item md={setMaxWidth ? 12 : 6} justify="center">
         <UserPermissions
+          existingPerms={existingPerms}
           updatePermissions={updatePermissions}
           clearPermissionsToggle={clearPermissionsToggle} 
         />
       </Grid>
-      <Grid container item md={6} justify="center">
+      <Grid container item md={setMaxWidth ? 12 : 6} justify="center">
         <Button
           variant="outlined"
           color="primary"
