@@ -10,8 +10,11 @@ import Content from '../../../../lang';
 import useAvailablePermissions from '../../../../../lib/client/useAvailablePermissions';
 import LoginContext from '../../../../contexts/login';
 import LoadingScreen from '../../../Loading/loading';
+import { validatePermsList } from '../../../../../utils/validation/permissions';
 
-const UserPermissions = ({ updatePermissions, clearPermissionsToggle }) => {
+const UserPermissions = ({ 
+  updatePermissions, clearPermissionsToggle, existingPerms,
+}) => {
   const classes = useStyles();
   const { user } = useContext(LoginContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +33,19 @@ const UserPermissions = ({ updatePermissions, clearPermissionsToggle }) => {
 
     setSelectedPerms(initPerms);
   };
+  const initExistingPermList = (permList, permsObj) => {
+    let validPerms = Object.keys(permsObj).map((permKey) => Number(permKey));
+    let initPerms = {};
+    // For each of the user's existing permissions 
+    permList.forEach((perm) => {
+      // If this is a valid permission defined in the database
+      if (validPerms.includes(perm)) {
+        // We initialize it as true
+        initPerms[perm] = true;
+      }
+    })
+    setSelectedPerms(initPerms);
+  };
   // Transforms the selected permissions into an array of selected permission values
   const transformSelectedPerms = () => (
     Object.keys(selectedPerms).filter((permType) => (
@@ -44,7 +60,11 @@ const UserPermissions = ({ updatePermissions, clearPermissionsToggle }) => {
     const retrieveAvailPerms = async () => {
       const retrievedPerms = await useAvailablePermissions(user);
       setUserPerms(retrievedPerms);
-      initSelectedPerms(retrievedPerms);
+      if (validatePermsList(existingPerms)) {
+        initExistingPermList(existingPerms, retrievedPerms);
+      } else {
+        initSelectedPerms(retrievedPerms);
+      }
       setIsLoading(false);
     };
 
