@@ -11,7 +11,7 @@ import useAvailablePermissions from '../../../../../lib/client/useAvailablePermi
 import LoginContext from '../../../../contexts/login';
 import LoadingScreen from '../../../Loading/loading';
 
-const UserPermissions = ({ updatePermissions }) => {
+const UserPermissions = ({ updatePermissions, clearPermissionsToggle }) => {
   const classes = useStyles();
   const { user } = useContext(LoginContext);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,7 +53,13 @@ const UserPermissions = ({ updatePermissions }) => {
 
   useEffect(() => {
     updatePermissions(transformSelectedPerms());
-  }, [selectedPerms])
+  }, [selectedPerms]);
+
+  useEffect(() => {
+    if (userPerms.length !== 0) {
+      initSelectedPerms(userPerms);
+    }
+  }, [clearPermissionsToggle]);
 
   if (isLoading) {
     return <LoadingScreen />;
