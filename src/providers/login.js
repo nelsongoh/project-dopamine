@@ -6,7 +6,7 @@ import 'firebase/auth';
 
 const LoginProvider = ({ children }) => {
   const [login, setLogin] = useState({
-    user: null,
+    userToken: null,
     isLoggingIn: true,
     setIsLoggingIn: (isUserLoggingIn) => {
       setLogin({...login, isLoggingIn: Boolean(isUserLoggingIn)})
@@ -16,14 +16,31 @@ const LoginProvider = ({ children }) => {
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authUser) => {
-      let userObj = authUser ? authUser : null;
-      setLogin({
-        ...login,
-        user: userObj,
-        isLoggingIn: false,
-      })
+      if (authUser) {
+        authUser.getIdToken()
+          .then((userObjToken) => {
+            setLogin({
+              ...login,
+              userToken: userObjToken,
+              isLoggingIn: false,
+            });
+          })
+          .catch((error) => {
+            setLogin({
+              ...login,
+              userToken: null,
+              isLoggingIn: false,
+            });
+          });
+      } else {
+        setLogin({
+          ...login,
+          userToken: null,
+          isLoggingIn: false,
+        });
+      }
     })
-  }, [login.user]);
+  }, [login.userToken]);
 
   return (
     <LoginContext.Provider value={login}>
