@@ -6,13 +6,13 @@ import DashboardContentAuth from './DashboardContentAuth';
 import routes from '../../routes';
 
 const PageAuth = ({ ProtectedComponent, isContentProtected = false, permType = -1 }) => {
-  const { user, isLoggingIn } = useContext(LoginContext);
+  const { userToken, isLoggingIn } = useContext(LoginContext);
 
   useEffect(() => {
-    if (user === null && isLoggingIn === false) {
+    if (userToken === null && isLoggingIn === false) {
       Router.push(routes.public.index);
     }
-  }, [user, isLoggingIn]);
+  }, [userToken, isLoggingIn]);
 
   if (isLoggingIn) {
     return <LoadingScreen />;

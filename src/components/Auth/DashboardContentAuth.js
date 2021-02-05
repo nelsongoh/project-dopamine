@@ -13,8 +13,8 @@ import routes from '../../routes';
 const DashboardContentAuth = ({ ProtectedComponent, permType }) => {
   const classes = useStyles();
   // Fetch the user's view of the dashboard
-  const { user } = useContext(LoginContext);
-  const { content, isLoading, isError } = useDashboardContent(user);
+  const { userToken } = useContext(LoginContext);
+  const { content, isLoading, isError } = useDashboardContent(userToken);
 
   const container = typeof(window) !== 'undefined' ? () => window.document.body : undefined;
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);

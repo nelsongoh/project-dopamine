@@ -19,13 +19,13 @@ const LoginForm = () => {
   const [errors, setErrors] = useState(LoginErrors());
   const [loginDisabled, setLoginDisabled] = useState(false);
   const [spinner, setSpinner] = useState(null);
-  const { user, setIsLoggingIn } = useContext(LoginContext);
-
+  const { userToken, setIsLoggingIn } = useContext(LoginContext);
+  
   useEffect(() => {
-    if (user !== null) {
+    if (userToken !== null) {
       Router.push(routes.protected.dashboard);
     }
-  }, [user])
+  }, [userToken])
 
   // Function to log the user in, triggers the spinner while waiting for the sign-in to complete
   const loginUser = async () => {
