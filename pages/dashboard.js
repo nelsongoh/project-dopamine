@@ -8,11 +8,11 @@ import routes from '../src/routes';
 
 const Dashboard = () => {
   // Fetch the user's view of the dashboard
-  const { user, isLoggingIn } = useContext(LoginContext);
-  const { content, isLoading, isError } = useDashboardContent(user);
+  const { userToken, isLoggingIn } = useContext(LoginContext);
+  const { content, isLoading, isError } = useDashboardContent(userToken);
 
   if (isLoading || isLoggingIn) {
-    return <LoadingScreen />
+    return <LoadingScreen />;
   }
 
   if (isError) {

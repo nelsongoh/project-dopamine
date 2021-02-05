@@ -18,10 +18,10 @@ const DashboardCalendar = () => {
     setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() - 1, currDate.getDate()));
   };
 
-  const { user } = useContext(LoginContext);
+  const { userToken } = useContext(LoginContext);
   // The use of this reference is to help determine if an API fetch call is necessary
   const overlayInfo = useRef(null);
-  const { content, isLoading, isError } = useCalendarOverlay(user, overlayInfo.current);
+  const { content, isLoading, isError } = useCalendarOverlay(userToken, overlayInfo.current);
 
   if (isLoading) {
     return <LoadingScreen />;
