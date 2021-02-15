@@ -1,15 +1,15 @@
 import verifyIsAdmin from '../../../../lib/server/verifyIsAdmin';
-import { retrieveAll } from '../../../../lib/server/users/retrieveAll';
+import { retrieveUserAuthData } from '../../../../lib/server/users/retrieveAll';
 
 const handler = async (req, res) => {
   const {
-    query: { uid, npt, userLimit },
+    query: { userToken, npt, userLimit },
   } = req;
 
-  const isUserAdmin = await verifyIsAdmin(uid);
+  const isUserAdmin = await verifyIsAdmin(userToken);
 
   if (isUserAdmin) {
-    const { success, data, errorMsg } = await retrieveAll(npt, userLimit);
+    const { success, data, errorMsg } = await retrieveUserAuthData(npt, userLimit);
 
     if (success) {
       res.status(200).json(data);

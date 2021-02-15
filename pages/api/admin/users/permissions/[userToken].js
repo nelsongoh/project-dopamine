@@ -10,18 +10,18 @@ if (!admin.apps.length) {
 
 const handler = async (req, res) => {
   const {
-    query: { uid },
+    query: { userToken },
   } = req;
 
-  const isUserAdmin = await verifyIsAdmin(uid);
+  const isUserAdmin = await verifyIsAdmin(userToken);
 
   if (isUserAdmin) {
     const db = admin.firestore();
-    const permsRef = db.collection('permissions').doc('pages');
-    const permsDoc = await permsRef.get();
+    const defRef = db.collection("definitions").doc("permissions");
+    const defDoc = await defRef.get();
 
-    if (permsDoc.exists) {
-      const returnedData = permsDoc.data();
+    if (defDoc.exists) {
+      const returnedData = defDoc.data();
       res.status(200).json(returnedData);
     } else {
       res.status(404).json({});
