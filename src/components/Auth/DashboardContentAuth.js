@@ -1,9 +1,14 @@
-import React, { useContext, useState } from 'react';
+import React, { Fragment, useContext, useState } from 'react';
 import Router from 'next/router';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 import Toolbar from '@material-ui/core/Toolbar';
 import Hidden from '@material-ui/core/Hidden';
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Headerbar from '../../../src/components/Headerbar';
 import LoginContext from '../../contexts/login';
+import PermissionsContext from '../../contexts/permissions';
 import useDashboardContent from '../../../lib/client/useDashboardContent';
 import LoadingScreen from '../../../src/components/Loading/loading';
 import Sidebar from '../../../src/components/Sidebar';
@@ -12,72 +17,63 @@ import routes from '../../routes';
 
 const DashboardContentAuth = ({ ProtectedComponent, permType }) => {
   const classes = useStyles();
-  // Fetch the user's view of the dashboard
-  const { userToken } = useContext(LoginContext);
-  const { content, isLoading, isError } = useDashboardContent(userToken);
+  const { isLoggingIn } = useContext(LoginContext);
+  const { permissions, checkPermissions } = useContext(PermissionsContext);
 
+  const theme = useTheme();
+  const isMobileView = useMediaQuery(theme.breakpoints.down('sm'));
   const container = typeof(window) !== 'undefined' ? () => window.document.body : undefined;
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const toggleMobileSidebar = () => {
     setMobileSidebarOpen(!mobileSidebarOpen);
   }
 
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
+  let isLoading = true;
 
-  if (isError) {
-    console.log("There's an error in the DashboardContentAuth component.");
-    Router.push(routes.public.index);
-  }
-
-  // Check to see if the page that the user wants to access is part of their authorization
-  // If there is no content available, consider it an error
-  if (content == null || typeof(content) == 'undefined') {
-    console.log("Content is null or undefined in DashboardContentAuth");
-    Router.push(routes.public.index);
-  } else if (content.dashboard.views.length == 0) {
-    console.log("Content dashboard views length is 0");
-    Router.push(routes.public.index);
-  } else {
-    let isContentAuth = false;
-
-    for (let i = 0; i < content.dashboard.views.length; i += 1) {
-      if (content.dashboard.views[i] === permType) {
-        isContentAuth = true;
-        break;
+  // If we're not in the process of logging in,
+  // and we have retrieved the user's permissions
+  if (!isLoggingIn && permissions !== null) {
+    // If there are no permissions granted for the user
+    // send them back to the index page
+    if (permissions.length === 0 && !isLoading) {
+      console.log("Allowed views is empty");
+      isLoading = true;
+      Router.push(routes.index);
+    } else {
+      const isUserAuthorized = checkPermissions(permType);
+      if (!isUserAuthorized) {
+        console.log("USER NOT AUTHORIZED TO VIEW PAGE.");
+        isLoading = true;
+        Router.push(routes.index);
+      } else {
+        isLoading = false;
       }
-    }
-
-    if (!isContentAuth) {
-      console.log("USER NOT AUTHORIZED TO VIEW PAGE.");
-      Router.push(routes.public.index);
-      return <LoadingScreen />;
     }
   }
 
   return (
     <div className={classes.root}>
       <Headerbar isTopStack={true} toggleSidebar={toggleMobileSidebar} />
-      <Hidden mdUp>
-        <Sidebar
-          content={content.dashboard.views}
-          type="mobile"
-          open={mobileSidebarOpen}
-          onClose={toggleMobileSidebar}
-          container={container}
-        />
-      </Hidden>
-      <Hidden smDown>
-        <Sidebar
-          content={content.dashboard.views}
-          type="perm"
-        />
-      </Hidden>
-      <div className={classes.content}>
-        <Toolbar />
-        <ProtectedComponent />
-      </div>
+      {isLoading ? <LoadingScreen isOpen={isLoading} /> : (
+        <Fragment>
+          {isMobileView ? (
+            <Sidebar
+              type="mobile"
+              open={mobileSidebarOpen}
+              onClose={toggleMobileSidebar}
+              container={container}
+            />
+          ) : (
+            <Sidebar
+              type="perm"
+            />
+          )}
+          <div className={classes.content}>
+            <Toolbar />
+            <ProtectedComponent />
+          </div>
+        </Fragment>
+      )}
     </div>
   );
 };
