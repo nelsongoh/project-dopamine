@@ -1,5 +1,4 @@
 import firebase from 'firebase/app';
-import 'firebase/auth';
 
 const config = {
   apiKey: "AIzaSyCDc6ZmvPUeFxMQqG_HvJfbgfkC_c_9-Vs",
@@ -7,10 +6,8 @@ const config = {
   projectId: "proj-dopamine",
 };
 
-const initFirebase = () => {
+export const initFirebase = () => {
   if (!firebase.apps.length) {
     firebase.initializeApp(config);
   }
 };
-
-export default initFirebase;
