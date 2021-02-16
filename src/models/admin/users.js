@@ -1,11 +1,7 @@
 export const RetrieveMetadataOutcome = () => {
   return {
     success: false,
-    data: {
-      totalUserCount: -1,
-      totalEnabledUsers: -1,
-      totalDisabledUsers: -1,
-    },
+    data: {},
     errorMsg: "",
   }
 }
@@ -21,15 +17,12 @@ export const RetrieveAllUsersOutcome = () => {
   };
 };
 
-export const FullUser = (
+export const UserAuthRecord = (
   email = "",
-  firstName = "",
-  lastName = "",
   isAccEnabled = false,
   uid = "",
-  permissions = [],
 ) => {
   return {
-    email, firstName, lastName, isAccEnabled, uid, permissions,
+    email, isAccEnabled, uid,
   };
 };
