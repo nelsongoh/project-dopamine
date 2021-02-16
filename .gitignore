@@ -44,3 +44,6 @@ remoteconfig.template.json
 storage.rules
 .firebase
 /functions
+
+# Manual-run scripts
+/manual_scripts

@@ -18,14 +18,10 @@ const DashboardCalendar = () => {
     setCurrDate(new Date(currDate.getFullYear(), currDate.getMonth() - 1, 1));
   };
 
-  const { user } = useContext(LoginContext);
+  const { userToken } = useContext(LoginContext);
   // The use of this reference is to help determine if an API fetch call is necessary
   const overlayInfo = useRef(null);
-  const { content, isLoading, isError } = useCalendarOverlay(user, overlayInfo.current);
-
-  if (isLoading) {
-    return <LoadingScreen />;
-  }
+  const { content, isLoading, isError } = useCalendarOverlay(userToken, overlayInfo.current);
 
   if (isError) {
     console.log('An error has occurred while trying to retrieve the calendar overlay');
@@ -37,19 +33,21 @@ const DashboardCalendar = () => {
   }
 
   return (
-    <Grid container spacing={3} justify="center">
-      <Grid item xs={12} md={6}>
-        <Calendar content={overlayInfo.current} currDate={currDate} setNextMth={setNextMth} setPrevMth={setPrevMth} />
-      </Grid>
-      <Grid container item md={6} direction="column" alignItems="center" spacing={5}>
-        <Grid container item alignItems="stretch">
-          <LuckyDirections content={overlayInfo.current.directions} currDate={currDate} />
+    isLoading ? <LoadingScreen isOpen={isLoading} /> : (
+      <Grid container spacing={3} justify="center">
+        <Grid item xs={12} md={6}>
+          <Calendar content={overlayInfo.current} currDate={currDate} setNextMth={setNextMth} setPrevMth={setPrevMth} />
         </Grid>
-        <Grid container item alignItems="stretch">
-          <LuckyColors content={overlayInfo.current.colors} currDate={currDate} />
+        <Grid container item md={6} direction="column" alignItems="center" spacing={5}>
+          <Grid container item alignItems="stretch">
+            <LuckyDirections content={overlayInfo.current.directions} currDate={currDate} />
+          </Grid>
+          <Grid container item alignItems="stretch">
+            <LuckyColors content={overlayInfo.current.colors} currDate={currDate} />
+          </Grid>
         </Grid>
       </Grid>
-    </Grid>
+    )
   );
 };
 

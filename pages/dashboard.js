@@ -1,30 +1,27 @@
 import React, { useContext } from 'react';
 import PageAuth from '../src/components/Auth/PageAuth';
 import LoginContext from '../src/contexts/login';
-import useDashboardContent from '../lib/client/useDashboardContent';
+import PermissionsContext from '../src/contexts/permissions';
 import LoadingScreen from '../src/components/Loading/loading';
 import Router from 'next/router';
 import routes from '../src/routes';
 
 const Dashboard = () => {
-  // Fetch the user's view of the dashboard
-  const { user, isLoggingIn } = useContext(LoginContext);
-  const { content, isLoading, isError } = useDashboardContent(user);
+  // Update the user's view of the dashboard
+  const { isLoggingIn } = useContext(LoginContext);
+  const { permissions } = useContext(PermissionsContext);
 
-  if (isLoading || isLoggingIn) {
-    return <LoadingScreen />
-  }
-
-  if (isError) {
-    console.log("There's an error.");
-    Router.push(routes.public.index);
-  }
-
-  const firstDashboardLink = routes.protected[content.dashboard.views[0]].url;
-  Router.push(`${firstDashboardLink}`);
+  // If there are no permissions available and the user is not in the state of logging in
+  if (!isLoggingIn && (permissions === null || permissions.length === 0)) {
+    console.log(`No permissions found for the user while at the index Dashboard page.`);
+    Router.push(routes.index);
+  } else {
+    const firstDashboardLink = permissions[0].url;
+    Router.push(`${firstDashboardLink}`);
+  }  
   
   return (
-    <LoadingScreen />
+    <LoadingScreen isOpen={true} />
   );
 };
 

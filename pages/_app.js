@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
 import LoginProvider from '../src/providers/login';
+import PermissionsProvider from '../src/providers/permissions';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -27,7 +28,9 @@ export default function MyApp(props) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <LoginProvider>
-          <Component {...pageProps} />
+          <PermissionsProvider>
+            <Component {...pageProps} />
+          </PermissionsProvider>
         </LoginProvider>
       </ThemeProvider>
     </React.Fragment>

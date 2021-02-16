@@ -1,15 +1,26 @@
-export const RegisterUser = (
-  firstName = "",
-  lastName = "",
-  email = "",
-  permissions = [1],
+export const UserPermissions = (
+  permissionClass = "",
+  pages = new Set(),
 ) => {
   return {
-    firstName, lastName, email, permissions,
+    permissionClass,
+    pages,
   }
 };
 
-export const RegisterUserErrors = () => {
+export const User = (
+  firstName = "",
+  lastName = "",
+  email = "",
+  isEnabled = false,
+  permissions = UserPermissions(),
+) => {
+  return {
+    firstName, lastName, email, isEnabled, permissions,
+  }
+};
+
+export const UserErrors = () => {
   return {
     firstName: {
       hasError: false,

@@ -10,6 +10,11 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     padding: theme.spacing(3),
   },
+
+  permsSection: {
+    marginTop: '1em',
+    marginBottom: '1em',
+  },
 }));
 
 export default useStyles;

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { Fragment, useContext, useEffect, useState } from 'react';
 import Router from 'next/router';
 import LoginContext from '../../contexts/login';
 import LoadingScreen from '../Loading/loading';
@@ -6,17 +6,16 @@ import DashboardContentAuth from './DashboardContentAuth';
 import routes from '../../routes';
 
 const PageAuth = ({ ProtectedComponent, isContentProtected = false, permType = -1 }) => {
-  const { user, isLoggingIn } = useContext(LoginContext);
+  const { userToken, isLoggingIn } = useContext(LoginContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (user === null && isLoggingIn === false) {
-      Router.push(routes.public.index);
+    if (userToken === null && !isLoggingIn) {
+      Router.push(routes.index);
+    } else {
+      setIsLoading(false);
     }
-  }, [user, isLoggingIn]);
-
-  if (isLoggingIn) {
-    return <LoadingScreen />;
-  };
+  }, [userToken, isLoggingIn]);
 
   if (isContentProtected) {
     return (
@@ -25,6 +24,8 @@ const PageAuth = ({ ProtectedComponent, isContentProtected = false, permType = -
   };
 
   return (
+    isLoading || isLoggingIn ? 
+    <LoadingScreen isOpen={isLoading} /> :
     <ProtectedComponent />
   );
 }

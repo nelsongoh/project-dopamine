@@ -9,7 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import { User } from '../../models/login';
 import Content from '../../lang';
 import useStyles from './emailCredentialReAuthStyles';
-import { getEmailAuthCred, reAuthUser } from '../Auth/FirebaseAuth';
+import { getEmailAuthCred, reAuthUser } from '../../../lib/client/users';
 import { ReAuthErrors } from '../../models/reauth';
  
 const EmailCredentialReAuth = ({ closeDialog, callbackFunc }) => {

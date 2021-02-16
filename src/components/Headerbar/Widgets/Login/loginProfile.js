@@ -4,7 +4,7 @@ import Icon from '@material-ui/core/Icon';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Link from '../../../Link';
-import { signOutUser } from '../../../Auth/FirebaseAuth';
+import { signOutUser } from '../../../../../lib/client/users';
 import Content from '../../../../lang';
 
 const LoginProfileButton = () => {

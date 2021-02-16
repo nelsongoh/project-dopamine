@@ -4,13 +4,13 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useStyles from './loginStyles';
 import Content from '../../../lang/index';
-import { signInUserEmailPwd } from '../../Auth/FirebaseAuth';
+import { signInUserEmailPwd } from '../../../../lib/client/users';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
 import { User, LoginErrors } from '../../../models/login';
 import Router from 'next/router';
 import LoginContext from '../../../contexts/login';
-import routes from '../../../routes';
+import PermissionsContext from '../../../contexts/permissions';
 
 const LoginForm = () => {
   const classes = useStyles();
@@ -19,13 +19,14 @@ const LoginForm = () => {
   const [errors, setErrors] = useState(LoginErrors());
   const [loginDisabled, setLoginDisabled] = useState(false);
   const [spinner, setSpinner] = useState(null);
-  const { user, setIsLoggingIn } = useContext(LoginContext);
-
+  const { setIsLoggingIn } = useContext(LoginContext);
+  const { permissions } = useContext(PermissionsContext);
+  
   useEffect(() => {
-    if (user !== null) {
-      Router.push(routes.protected.dashboard);
+    if (permissions !== null && permissions.length > 0) {
+      Router.push(permissions[0].url);
     }
-  }, [user])
+  }, [permissions])
 
   // Function to log the user in, triggers the spinner while waiting for the sign-in to complete
   const loginUser = async () => {
