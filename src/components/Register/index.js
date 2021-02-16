@@ -5,11 +5,12 @@ import Content from '../../lang';
 import { User, UserErrors } from '../../models/register';
 import { useCreateUser } from '../../../lib/client/useUsers';
 import LoginContext from '../../contexts/login';
-import { validateAdminCreateUser } from '../../../utils/validation/form';
+import { isUserNonEmpty } from '../../../utils/validation/form';
+import { debounce } from '../../../utils/common';
 import UserForm from '../Form/User';
 
 const RegisterNewUser = () => {
-  const { user } = useContext(LoginContext);
+  const { userToken } = useContext(LoginContext);
   
   const [regUserDetails, setRegUserDetails] = useState(User());
   const handleUpdateFirstName = (event) => {
@@ -21,9 +22,12 @@ const RegisterNewUser = () => {
   const handleUpdateEmail = (event) => {
     setRegUserDetails({...regUserDetails, email: event.target.value});
   };
-  const setSelectedPermissions = (permsList) => {
-    setRegUserDetails({...regUserDetails, permissions: permsList});
+  const setSelectedPermissions = (permsObj) => {
+    setRegUserDetails({...regUserDetails, permissions: permsObj});
   }
+  const toggleAccountStatus = () => {
+    setRegUserDetails({...regUserDetails, isEnabled: !regUserDetails.isEnabled});
+  };
 
   const [errorMsgs, setErrorMsgs] = useState(UserErrors());
 
@@ -46,7 +50,7 @@ const RegisterNewUser = () => {
 
   const submitForm = async () => {
     setIsBtnsDisabled(true);
-    const outcome = await useCreateUser(user, regUserDetails);
+    const outcome = await useCreateUser(userToken, regUserDetails);
     setIsBtnsDisabled(false);
 
     // If the creation was a success, 
@@ -69,14 +73,21 @@ const RegisterNewUser = () => {
       </Snackbar>
       <UserForm 
         userDetails={regUserDetails}
-        updateFirstName={handleUpdateFirstName}
-        updateLastName={handleUpdateLastName}
-        updateEmail={handleUpdateEmail}
+        updateFirstName={(e) => {
+          debounce(handleUpdateFirstName(e))
+        }}
+        updateLastName={(e) => {
+          debounce(handleUpdateLastName(e))
+        }}
+        updateEmail={(e) => {
+          debounce(handleUpdateEmail(e))
+        }}
         updatePermissions={setSelectedPermissions}
+        toggleAccStatus={toggleAccountStatus}
         clearForm={clearForm}
         submitForm={submitForm}
         isCancelDisabled={isBtnsDisabled}
-        isSubmitDisabled={isBtnsDisabled || !validateAdminCreateUser(regUserDetails)}
+        isSubmitDisabled={isBtnsDisabled || !isUserNonEmpty(regUserDetails)}
         clearPermissionsToggle={clearPerms}
         errors={errorMsgs}
       />
