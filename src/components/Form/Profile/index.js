@@ -5,16 +5,15 @@ import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import Content from '../../../lang';
-import LoginContext from '../../../contexts/login';
 import useStyles from './profileStyles';
-import { validateEditProfile } from '../../../../utils/validation/form';
+import { validateUserEditProfile } from '../../../../utils/validation/form';
 import { Profile, ProfileErrors } from '../../../models/profile';
-import { changeUserPwd } from '../../Auth/FirebaseAuth';
 import EmailCredentialReAuth from '../../Auth/EmailCredentialReAuth';
+import { changeUserPwd, fetchUserInfo } from '../../../../lib/client/users';
 
 const ProfileForm = () => {
   const classes = useStyles();
-  const { user } = useContext(LoginContext);
+  const { name, email } = fetchUserInfo();
 
   const [chngPwd, setChngPwd] = useState(Profile());
   const [editProfileErrors, setEditProfileErrors] = useState(ProfileErrors());
@@ -71,7 +70,7 @@ const ProfileForm = () => {
     setEditProfileErrors(ProfileErrors());
 
     if (chngPwd.newPwd.replaceAll(" ", "") !== "" && chngPwd.reEnterPwd.replaceAll(" ", "") !== "") {
-      if (validateEditProfile(chngPwd.newPwd, chngPwd.reEnterPwd) === true) {
+      if (validateUserEditProfile(chngPwd.newPwd, chngPwd.reEnterPwd) === true) {
         // Present a pop-up to ask the user to reauthenticate their credentials
         openDisplayReAuth();
       } else {
@@ -119,7 +118,7 @@ const ProfileForm = () => {
             variant="outlined"
             InputProps={{ readOnly: true }}
             label={Content('en').pages.profile.textFields.name}
-            value={user.displayName || "???"}
+            value={name}
             fullWidth
           />
         </Grid>
@@ -128,7 +127,7 @@ const ProfileForm = () => {
             variant="outlined"
             InputProps={{ readOnly: true }}
             label={Content('en').pages.profile.textFields.email}
-            value={user.email}
+            value={email}
             fullWidth
           />
         </Grid>
