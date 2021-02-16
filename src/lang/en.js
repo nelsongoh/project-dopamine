@@ -1,4 +1,9 @@
 const Content = {
+  sidebar: {
+    admin: {
+      title: "Admin",
+    },
+  },
   reauth: {
     title: "Re-authenticate your credentials",
     contentMsg: "Please re-enter your current login details to confirm your action.",
@@ -69,6 +74,14 @@ const Content = {
               },
             },
           },
+          editUserDialog: {
+            title: "Edit user",
+            accStatusEnabledTitle: "Account Enabled",
+            accStatusDisabledTitle: "Account Disabled",
+            accStatusAriaLabel: "account status toggle",
+            updateSuccessSnackbarMsg: "User successfully updated!",
+            updateFailureSnackbarMsg: "User update failed.",
+          }
         },
       },
     },
