@@ -6,12 +6,13 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useStyles from './userFormStyles';
 import Content from '../../../lang';
 import UserPermissions from '../../Form/Widgets/Permissions';
+import AccountStatusToggle from './AccountStatusToggle';
 
 const UserForm = ({ 
   userDetails, updateFirstName, updateLastName, updateEmail,
-  updatePermissions, clearForm, submitForm, isCancelDisabled,
-  isSubmitDisabled, errors, clearPermissionsToggle, setMaxWidth = false,
-  existingPerms,
+  updatePermissions, toggleAccStatus, clearForm, submitForm,
+  isCancelDisabled, isSubmitDisabled, errors, clearPermissionsToggle,
+  setMaxWidth = false, existingPerms,
 }) => {
   const classes = useStyles();
   const theme = useTheme();
@@ -24,7 +25,7 @@ const UserForm = ({
       alignItems="center"
       className={classes.formDiv}
       spacing={3}
-    >
+    > 
       <Grid container item md={setMaxWidth ? 12 : 6} spacing={isMobileView ? 3 : 0}>
         <Grid xs={12} md={6} item>
           <TextField
@@ -66,6 +67,12 @@ const UserForm = ({
           existingPerms={existingPerms}
           updatePermissions={updatePermissions}
           clearPermissionsToggle={clearPermissionsToggle} 
+        />
+      </Grid>
+      <Grid container item md={setMaxWidth ? 12 : 6}>
+        <AccountStatusToggle
+          isEnabled={userDetails.isEnabled}
+          toggleStatus={toggleAccStatus}
         />
       </Grid>
       <Grid container item md={setMaxWidth ? 12 : 6} justify="center">
