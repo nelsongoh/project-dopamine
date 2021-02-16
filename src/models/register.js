@@ -1,11 +1,22 @@
+export const UserPermissions = (
+  permissionClass = "",
+  pages = new Set(),
+) => {
+  return {
+    permissionClass,
+    pages,
+  }
+};
+
 export const User = (
   firstName = "",
   lastName = "",
   email = "",
-  permissions = [1],
+  isEnabled = false,
+  permissions = UserPermissions(),
 ) => {
   return {
-    firstName, lastName, email, permissions,
+    firstName, lastName, email, isEnabled, permissions,
   }
 };
 
