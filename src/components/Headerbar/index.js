@@ -13,7 +13,7 @@ const Headerbar = ({ isTopStack = false, toggleSidebar = null }) => {
 
   return (
     <div className={classes.root}>
-      <AppBar className={stackIdx}>
+      <AppBar id="headerbar" className={stackIdx}>
         <Toolbar position="static">
           <IconButton
             color="inherit"
