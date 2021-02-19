@@ -9,6 +9,7 @@
       "@/models/*": ["src/models/*"],
       "@/client-lib/*": ["lib/client/*"],
       "@/client-server/*": ["lib/server/*"],
+      "@/utils/*": ["utils/*"],
     }
   }
 }
