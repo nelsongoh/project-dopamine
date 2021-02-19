@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import LoginContext from '../contexts/login';
+import LoginContext from '@/contexts/login';
 import { initFirebase } from '../firebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';

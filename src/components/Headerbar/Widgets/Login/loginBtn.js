@@ -1,6 +1,6 @@
 import Button from '@material-ui/core/Button';
-import Link from '../../../Link';
-import Content from '../../../../lang';
+import Link from '@/components/Link';
+import Content from '@/content';
 
 const LoginButton = () => {
   return (

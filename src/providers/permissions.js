@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
-import PermissionsContext from '../contexts/permissions';
-import LoginContext from '../contexts/login';
+import PermissionsContext from '@/contexts/permissions';
+import LoginContext from '@/contexts/login';
 import { initFirebase } from '../firebase';
 import firebase from 'firebase/app';
 import 'firebase/firestore';

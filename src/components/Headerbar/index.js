@@ -5,9 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
-import Content from '../../lang';
+import Content from '@/content';
 import useStyles from './headerbarStyles';
-import LoginWidget from './Widgets/Login';
+import LoginWidget from '@/components/Headerbar/Widgets/Login';
 import routes from '../../routes';
 
 const Headerbar = ({ isTopStack = false, toggleSidebar = null }) => {

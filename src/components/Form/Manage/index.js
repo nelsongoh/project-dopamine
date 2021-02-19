@@ -11,16 +11,15 @@ import Icon from '@material-ui/core/Icon';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
 import useStyles from './manageUsersStyles';
-import LoginContext from '../../../contexts/login';
-import { useGetUsers, useUpdateUser } from '../../../../lib/client/useUsers';
-import LoadingScreen from '../../Loading/loading';
-import Content from '../../../lang';
-import UserForm from '../../Form/User';
-import { User, UserErrors } from '../../../models/register';
+import LoginContext from '@/contexts/login';
+import { useGetUsers, useUpdateUser } from '@/client-lib/useUsers';
+import Content from '@/content';
+import UserForm from '@/components/Form/User';
+import { User, UserErrors } from '@/models/register';
 import EditUserDialog from './EditUserDialog';
-import { validateAdminEditUser } from '../../../../utils/validation/form';
-import { chunkArray, debounce } from '../../../../utils/common';
-import { userPermissionSetToArray } from '../../../../utils/permissions';
+import { validateAdminEditUser } from '@/utils/validation/form';
+import { chunkArray, debounce } from '@/utils/common';
+import { userPermissionSetToArray } from '@/utils/permissions';
 
 const ManageUsers = () => {
   const classes = useStyles();

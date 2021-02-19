@@ -5,7 +5,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import useStyles from './editUserDialogStyles';
-import Content from '../../../../lang';
+import Content from '@/content';
 
 const EditUserDialog = ({ 
   open, onClose, children
