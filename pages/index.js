@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import useTheme from '@material-ui/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
-import Headerbar from '../src/components/Headerbar';
+import Headerbar from '@/components/Headerbar';
 
 const useStyles = makeStyles((theme) => ({
   pageTitle: {
