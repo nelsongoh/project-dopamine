@@ -8,7 +8,7 @@
       "@/providers/*": ["src/providers/*"],
       "@/models/*": ["src/models/*"],
       "@/client-lib/*": ["lib/client/*"],
-      "@/client-server/*": ["lib/server/*"],
+      "@/server-lib/*": ["lib/server/*"],
       "@/utils/*": ["utils/*"],
     }
   }
