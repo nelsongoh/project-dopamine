@@ -6,16 +6,6 @@ import useTheme from '@material-ui/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
 import Headerbar from '../src/components/Headerbar';
-import { retrieveIndexPageAssets } from '../lib/server/assets';
-
-export const getStaticProps = async (context) => {
-  const { backgroundImg } = await retrieveIndexPageAssets();
-  return {
-    props: {
-      backgroundImg
-    }
-  }
-};
 
 const useStyles = makeStyles((theme) => ({
   pageTitle: {
@@ -85,7 +75,7 @@ const Home = ({ backgroundImg }) => {
             zIndex: -1,
           }}>
             <Image
-              src={backgroundImg}
+              src="/assets/indexPage/francesco-ungaro-2325447.jpg"
               alt="Landing page image"
               aria-label="hot-air balloons in the desert"
               layout="fill"
