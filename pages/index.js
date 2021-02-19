@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = ({ backgroundImg }) => {
+const Home = () => {
   const [headerBarHeight, setHeaderBarHeight] = useState(0);
   const classes = useStyles();
   const theme = useTheme();
