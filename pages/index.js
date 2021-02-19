@@ -41,13 +41,10 @@ const Home = ({ backgroundImg }) => {
   const theme = useTheme();
 
   const isXtraSmall = useMediaQuery(theme.breakpoints.only("xs"));
-  const isMidAndAbove = useMediaQuery(theme.breakpoints.up("md"));
 
   const getTypoVariant = () => {
     if (isXtraSmall) {
       return "h4";
-    } else if (isMidAndAbove) {
-      return "h1";
     } else {
       return "h2";
     }
