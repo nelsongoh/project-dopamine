@@ -18,6 +18,14 @@ export default class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/icon?family=Material+Icons"
           />
+          <link
+            rel="preconnect"
+            href="https://fonts.gstatic.com" 
+          />
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap"
+          />
         </Head>
         <body>
           <Main />

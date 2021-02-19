@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
       display: 'none',
     },
   },
+
+  grow: {
+    flexGrow: 1,
+  },
 }));
 
 export default useStyles;

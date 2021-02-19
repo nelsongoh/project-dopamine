@@ -1,4 +1,7 @@
 const Content = {
+  webpage: {
+    title: "Project Dopamine",
+  },
   sidebar: {
     admin: {
       title: "Admin",
@@ -16,7 +19,7 @@ const Content = {
     },
   },
   headerbar: {
-    title: "吃 jiàk",
+    title: "Project Dopamine",
     menuBtn: {
       ariaLabel: "Open sidebar",
     },
