@@ -3,14 +3,14 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import useStyles from './loginStyles';
-import Content from '../../../lang/index';
-import { signInUserEmailPwd } from '../../../../lib/client/users';
+import Content from '@/content';
+import { signInUserEmailPwd } from '@/client-lib/users';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from '@material-ui/core/Grid';
-import { User, LoginErrors } from '../../../models/login';
+import { User, LoginErrors } from '@/models/login';
 import Router from 'next/router';
-import LoginContext from '../../../contexts/login';
-import PermissionsContext from '../../../contexts/permissions';
+import LoginContext from '@/contexts/login';
+import PermissionsContext from '@/contexts/permissions';
 
 const LoginForm = () => {
   const classes = useStyles();

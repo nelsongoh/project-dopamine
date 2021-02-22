@@ -1,7 +1,7 @@
-import { Fragment, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Router from 'next/router';
-import LoginContext from '../../contexts/login';
-import LoadingScreen from '../Loading/loading';
+import LoginContext from '@/contexts/login';
+import LoadingScreen from '@/components/Loading/loading';
 import DashboardContentAuth from './DashboardContentAuth';
 import routes from '../../routes';
 

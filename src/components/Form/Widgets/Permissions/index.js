@@ -7,14 +7,14 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import useStyles from './permissionsStyles';
-import Content from '../../../../lang';
-import useAvailablePermissions from '../../../../../lib/client/useAvailablePermissions';
-import LoginContext from '../../../../contexts/login';
-import LoadingScreen from '../../../Loading/loading';
+import Content from '@/content';
+import useAvailablePermissions from '@/client-lib/useAvailablePermissions';
+import LoginContext from '@/contexts/login';
+import LoadingScreen from '@/components/Loading/loading';
 import { 
   validatePermsObj, validateExistingPerms,
   transformToInitialSelectedPerms, transformToUserPermissions,
-} from '../../../../../utils/permissions';
+} from '@/utils/permissions';
 
 const UserPermissions = ({ 
   updatePermissions, clearPermissionsToggle, existingPerms,

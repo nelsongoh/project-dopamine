@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@/contexts/*": ["src/contexts/*"],
+      "@/content": ["src/lang/index.js"],
+      "@/providers/*": ["src/providers/*"],
+      "@/models/*": ["src/models/*"],
+      "@/client-lib/*": ["lib/client/*"],
+      "@/server-lib/*": ["lib/server/*"],
+      "@/utils/*": ["utils/*"],
+      "@/pages/*": ["pages/*"],
+    }
+  }
+}

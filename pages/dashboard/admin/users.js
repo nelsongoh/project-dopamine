@@ -3,11 +3,11 @@ import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import PageAuth from '../../../src/components/Auth/PageAuth';
+import PageAuth from '@/components/Auth/PageAuth';
 import permissions from '../../../src/permissions';
-import Content from '../../../src/lang';
-import RegisterNewUser from '../../../src/components/Register';
-import ManageUsers from '../../../src/components/Form/Manage';
+import Content from '@/content';
+import RegisterNewUser from '@/components/Register';
+import ManageUsers from '@/components/Form/Manage';
 
 const TabPanel = ({ ChildComponent, value, index }) => (
   value === index ? <ChildComponent /> : null

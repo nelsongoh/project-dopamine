@@ -1,13 +1,13 @@
 import { Fragment, useContext, useState } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import Content from '../../lang';
-import { User, UserErrors } from '../../models/register';
-import { useCreateUser } from '../../../lib/client/useUsers';
-import LoginContext from '../../contexts/login';
-import { isUserNonEmpty } from '../../../utils/validation/form';
-import { debounce } from '../../../utils/common';
-import UserForm from '../Form/User';
+import Content from '@/content';
+import { User, UserErrors } from '@/models/register';
+import { useCreateUser } from '@/client-lib/useUsers';
+import LoginContext from '@/contexts/login';
+import { isUserNonEmpty } from '@/utils/validation/form';
+import { debounce } from '@/utils/common';
+import UserForm from '@/components/Form/User';
 
 const RegisterNewUser = () => {
   const { userToken } = useContext(LoginContext);

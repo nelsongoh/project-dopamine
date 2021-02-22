@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
-import PageAuth from '../src/components/Auth/PageAuth';
-import LoginContext from '../src/contexts/login';
-import PermissionsContext from '../src/contexts/permissions';
-import LoadingScreen from '../src/components/Loading/loading';
+import PageAuth from '@/components/Auth/PageAuth';
+import LoginContext from '@/contexts/login';
+import PermissionsContext from '@/contexts/permissions';
+import LoadingScreen from '@/components/Loading/loading';
 import Router from 'next/router';
 import routes from '../src/routes';
 

@@ -1,17 +1,14 @@
 import React, { Fragment, useContext, useState } from 'react';
 import Router from 'next/router';
-import firebase from 'firebase/app';
 import 'firebase/firestore';
 import Toolbar from '@material-ui/core/Toolbar';
-import Hidden from '@material-ui/core/Hidden';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Headerbar from '../../../src/components/Headerbar';
-import LoginContext from '../../contexts/login';
-import PermissionsContext from '../../contexts/permissions';
-import useDashboardContent from '../../../lib/client/useDashboardContent';
-import LoadingScreen from '../../../src/components/Loading/loading';
-import Sidebar from '../../../src/components/Sidebar';
+import Headerbar from '@/components/Headerbar';
+import LoginContext from '@/contexts/login';
+import PermissionsContext from '@/contexts/permissions';
+import LoadingScreen from '@/components/Loading/loading';
+import Sidebar from '@/components/Sidebar';
 import useStyles from './dashboardContentAuthStyles';
 import routes from '../../routes';
 

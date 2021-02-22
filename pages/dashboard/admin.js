@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'next/router';
-import PageAuth from '../../src/components/Auth/PageAuth';
-import LoadingScreen from '../../src/components/Loading/loading';
+import PageAuth from '@/components/Auth/PageAuth';
+import LoadingScreen from '@/components/Loading/loading';
 import permissions from '../../src/permissions';
 import routes from '../../src/routes';
 

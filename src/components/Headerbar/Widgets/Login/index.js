@@ -1,8 +1,7 @@
 import { useContext } from 'react';
 import LoginButton from './loginBtn';
 import LoginProfileButton from './loginProfile';
-
-import LoginContext from '../../../../contexts/login';
+import LoginContext from '@/contexts/login';
 
 const LoginWidget = () => {
   // Check the state of the user
