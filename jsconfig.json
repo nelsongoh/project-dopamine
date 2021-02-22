@@ -10,6 +10,7 @@
       "@/client-lib/*": ["lib/client/*"],
       "@/server-lib/*": ["lib/server/*"],
       "@/utils/*": ["utils/*"],
+      "@/pages/*": ["pages/*"],
     }
   }
 }
