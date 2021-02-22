@@ -72,7 +72,7 @@ const Home = () => {
             zIndex: -1,
           }}>
             <Image
-              src="/assets/indexPage/francesco-ungaro-2325447.jpg"
+              src="/assets/indexPage/desert-hot-air-balloon.jpg"
               alt="Landing page image"
               aria-label="hot-air balloons in the desert"
               layout="fill"
