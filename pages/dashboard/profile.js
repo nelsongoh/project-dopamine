@@ -3,7 +3,7 @@ import PageAuth from '@/components/Auth/PageAuth';
 import Grid from '@material-ui/core/Grid';
 import ProfileImage from '@/components/ProfileImage';
 import ProfileForm from '@/components/Form/Profile';
-import permissions from '../../src/permissions';
+import permissions from '@/permissions';
 
 const DashboardProfile = () => {
   return (

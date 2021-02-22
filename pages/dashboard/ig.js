@@ -1,6 +1,6 @@
 import React from 'react';
-import PageAuth from '../../src/components/Auth/PageAuth';
-import permissions from '../../src/permissions';
+import PageAuth from '@/components/Auth/PageAuth';
+import permissions from '@/permissions';
 
 const DashboardIG = () => {
   return (

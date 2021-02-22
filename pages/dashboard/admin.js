@@ -2,7 +2,7 @@ import React from 'react';
 import Router from 'next/router';
 import PageAuth from '@/components/Auth/PageAuth';
 import LoadingScreen from '@/components/Loading/loading';
-import permissions from '../../src/permissions';
+import permissions from '@/permissions';
 import routes from '../../src/routes';
 
 const DashboardAdmin = () => {

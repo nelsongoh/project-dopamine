@@ -7,7 +7,7 @@ import LuckyDirections from '@/components/LuckyDirections';
 import useCalendarOverlay from '@/client-lib/useCalendarOverlay';
 import LoadingScreen from '@/components/Loading/loading';
 import LoginContext from '@/contexts/login';
-import permissions from '../../src/permissions';
+import permissions from '@/permissions';
 
 const DashboardCalendar = () => {
   const [currDate, setCurrDate] = useState(new Date());
