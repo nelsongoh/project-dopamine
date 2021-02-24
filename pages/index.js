@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import useTheme from '@material-ui/styles/useTheme';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { makeStyles } from '@material-ui/core/styles';
-import Headerbar from '../src/components/Headerbar';
+import Headerbar from '@/components/Headerbar';
 
 const useStyles = makeStyles((theme) => ({
   pageTitle: {
@@ -35,19 +35,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Home = ({ backgroundImg }) => {
+const Home = () => {
   const [headerBarHeight, setHeaderBarHeight] = useState(0);
   const classes = useStyles();
   const theme = useTheme();
 
   const isXtraSmall = useMediaQuery(theme.breakpoints.only("xs"));
-  const isMidAndAbove = useMediaQuery(theme.breakpoints.up("md"));
 
   const getTypoVariant = () => {
     if (isXtraSmall) {
       return "h4";
-    } else if (isMidAndAbove) {
-      return "h1";
     } else {
       return "h2";
     }
@@ -75,7 +72,7 @@ const Home = ({ backgroundImg }) => {
             zIndex: -1,
           }}>
             <Image
-              src="/assets/indexPage/francesco-ungaro-2325447.jpg"
+              src="/assets/indexPage/desert-hot-air-balloon.jpg"
               alt="Landing page image"
               aria-label="hot-air balloons in the desert"
               layout="fill"

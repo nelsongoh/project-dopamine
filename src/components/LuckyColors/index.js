@@ -6,7 +6,7 @@ import GridListTileBar from '@material-ui/core/GridListTileBar';
 import Paper from '@material-ui/core/Paper';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import Content from '../../lang';
+import Content from '@/content';
 import useStyles from './luckyColorsStyles';
 
 const LuckyColors = ({ currDate, content }) => {

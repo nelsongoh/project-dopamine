@@ -1,15 +1,15 @@
-import { Fragment, useContext, useState } from 'react';
+import { Fragment, useContext } from 'react';
 import Toolbar from '@material-ui/core/Toolbar';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import LoginContext from '../../contexts/login';
-import PermissionsContext from '../../contexts/permissions';
+import LoginContext from '@/contexts/login';
+import PermissionsContext from '@/contexts/permissions';
 import useStyles from './sideBarStyles';
-import Link from '../Link';
-import LoadingScreen from '../Loading/loading';
-import Content from '../../lang';
+import Link from '@/components/Link';
+import LoadingScreen from '@/components/Loading/loading';
+import Content from '@/content';
 
 const Sidebar = ({ type, open, onClose, container }) => {
   const classes = useStyles();

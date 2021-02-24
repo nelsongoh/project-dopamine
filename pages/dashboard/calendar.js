@@ -1,13 +1,13 @@
 import React, { useContext, useRef, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
-import PageAuth from '../../src/components/Auth/PageAuth';
-import Calendar from '../../src/components/Calendar/calendar';
-import LuckyColors from '../../src/components/LuckyColors';
-import LuckyDirections from '../../src/components/LuckyDirections';
-import useCalendarOverlay from '../../lib/client/useCalendarOverlay';
-import LoadingScreen from '../../src/components/Loading/loading';
-import LoginContext from '../../src/contexts/login';
-import permissions from '../../src/permissions';
+import PageAuth from '@/components/Auth/PageAuth';
+import Calendar from '@/components/Calendar/calendar';
+import LuckyColors from '@/components/LuckyColors';
+import LuckyDirections from '@/components/LuckyDirections';
+import useCalendarOverlay from '@/client-lib/useCalendarOverlay';
+import LoadingScreen from '@/components/Loading/loading';
+import LoginContext from '@/contexts/login';
+import permissions from '@/permissions';
 
 const DashboardCalendar = () => {
   const [currDate, setCurrDate] = useState(new Date());

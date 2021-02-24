@@ -4,12 +4,12 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Snackbar from '@material-ui/core/Snackbar';
 import Alert from '@material-ui/lab/Alert';
-import Content from '../../../lang';
+import Content from '@/content';
 import useStyles from './profileStyles';
-import { validateUserEditProfile } from '../../../../utils/validation/form';
-import { Profile, ProfileErrors } from '../../../models/profile';
-import EmailCredentialReAuth from '../../Auth/EmailCredentialReAuth';
-import { changeUserPwd, fetchUserInfo } from '../../../../lib/client/users';
+import { validateUserEditProfile } from '@/utils/validation/form';
+import { Profile, ProfileErrors } from '@/models/profile';
+import EmailCredentialReAuth from '@/components/Auth/EmailCredentialReAuth';
+import { changeUserPwd, fetchUserInfo } from '@/client-lib/users';
 
 const ProfileForm = () => {
   const classes = useStyles();

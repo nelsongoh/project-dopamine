@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import Headerbar from '../src/components/Headerbar';
-import LoginForm from '../src/components/Form/Login/login';
+import Headerbar from '@/components/Headerbar';
+import LoginForm from '@/components/Form/Login/login';
 import styles from '../styles/Login.module.css';
 
 const Login = () => {

@@ -4,8 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import useStyles from './userFormStyles';
-import Content from '../../../lang';
-import UserPermissions from '../../Form/Widgets/Permissions';
+import Content from '@/content';
+import UserPermissions from '@/components/Form/Widgets/Permissions';
 import AccountStatusToggle from './AccountStatusToggle';
 
 const UserForm = ({ 

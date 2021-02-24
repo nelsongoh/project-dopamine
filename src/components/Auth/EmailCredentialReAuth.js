@@ -6,11 +6,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { User } from '../../models/login';
-import Content from '../../lang';
+import { User } from '@/models/login';
+import Content from '@/content';
 import useStyles from './emailCredentialReAuthStyles';
-import { getEmailAuthCred, reAuthUser } from '../../../lib/client/users';
-import { ReAuthErrors } from '../../models/reauth';
+import { getEmailAuthCred, reAuthUser } from '@/client-lib/users';
+import { ReAuthErrors } from '@/models/reauth';
  
 const EmailCredentialReAuth = ({ closeDialog, callbackFunc }) => {
   const classes = useStyles();

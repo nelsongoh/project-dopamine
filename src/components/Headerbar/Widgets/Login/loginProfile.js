@@ -3,9 +3,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Link from '../../../Link';
-import { signOutUser } from '../../../../../lib/client/users';
-import Content from '../../../../lang';
+import Link from '@/components/Link';
+import { signOutUser } from '@/client-lib/users';
+import Content from '@/content';
 
 const LoginProfileButton = () => {
   const [anchorEle, setAnchorEle] = useState(null);

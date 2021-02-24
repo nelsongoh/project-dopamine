@@ -1,7 +1,7 @@
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import Typography from '@material-ui/core/Typography';
-import Content from '../../../../lang';
+import Content from '@/content';
 import useStyles from './accountStatusToggleStyles';
 
 const AccountStatusToggle = ({ isEnabled, toggleStatus }) => {
