@@ -10,6 +10,7 @@ import ContainerSize from './ContainerSize';
 import DilutionLevel from './DilutionLevel';
 import FragranceFunction from './FragranceFunction';
 import IngredientSelection from './IngredientSelection';
+import NoteProportion from './NoteProportion';
 import LoadingScreen from '@/components/Loading/loading';
 import retrieveFragrancesContent from '@/client-lib/content/retrieveFragrancesContent';
 import { FragranceData } from '@/models/fragrances';
@@ -139,6 +140,10 @@ const Fragrances = () => {
                 chosenIngredients={chosenIngredients}
                 updateChosenIngredients={setChosenIngredients}
               />;
+              break;
+            }
+            case 4: {
+              stepComponent = <NoteProportion/>
               break;
             }
             default:
