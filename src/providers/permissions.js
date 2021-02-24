@@ -20,11 +20,10 @@ const PermissionsProvider = ({ children }) => {
 
         if (userDoc.exists) { 
           const userPermsData = userDoc.data().permissions;
-          
           let pagesRef;
 
           // If the user has a general permission class, retrieve pages belonging to the class
-          if (userPermsData.permissionClass !== null) {
+          if (userPermsData.permissionClass !== null && userPermsData.permissionClass !== "") {
             // If the user is an admin, retrieve all pages
             if (isAdmin) {
               pagesRef = firebase.firestore().collection("pages");
@@ -38,6 +37,7 @@ const PermissionsProvider = ({ children }) => {
           }
 
           const pagesDocSnapshot = await pagesRef.get();
+          
           permsList = [];
           pagesDocSnapshot.forEach((doc) => {
             permsList.push(doc.data());

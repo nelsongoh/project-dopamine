@@ -4,7 +4,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import PageAuth from '@/components/Auth/PageAuth';
-import permissions from '../../../src/permissions';
+import permissions from '@/permissions';
 import Content from '@/content';
 import RegisterNewUser from '@/components/Register';
 import ManageUsers from '@/components/Form/Manage';

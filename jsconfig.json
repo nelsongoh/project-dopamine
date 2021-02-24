@@ -11,6 +11,7 @@
       "@/server-lib/*": ["lib/server/*"],
       "@/utils/*": ["utils/*"],
       "@/pages/*": ["pages/*"],
+      "@/permissions": ["src/permissions.js"],
     }
   }
 }
