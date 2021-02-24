@@ -1,8 +1,10 @@
 export const FragranceData = (
   containerSizes = [],
-  dilutionLevels = []
+  dilutionLevels = [],
+  functions = [],
+  ingredients = [],
 ) => {
   return {
-    containerSizes, dilutionLevels,
+    containerSizes, dilutionLevels, functions, ingredients
   }
 }
