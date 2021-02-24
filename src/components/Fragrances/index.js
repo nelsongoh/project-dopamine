@@ -126,6 +126,7 @@ const Fragrances = () => {
               stepComponent = <FragranceFunction
                 functions={fragranceFunctions}
                 updateSelectedFunction={handleUpdateFragranceFunctions}
+                ingredients={fragranceData.ingredients}
               />;
               break;
             }
