@@ -6,15 +6,16 @@ import FormControl from '@material-ui/core/FormControl';
 import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import { isVolumeValid } from '@/utils/validation/fragrances';
+import Content from '@/content';
 
-const ContainerSize = ({ sizes, updateSelectedSize }) => {
+const ContainerSize = ({ selectedContainerSize, sizes, updateSelectedSize }) => {
   const shouldFocusRef = useRef(false);
   const [customVol, setCustomVol] = useState(undefined);
   const handleCustomVolSelection = (customVolNum) => {
     shouldFocusRef.current = true;
     setCustomVol(customVolNum);
   };
-  const [selectedVol, setSelectedVol] = useState(sizes[0] || null);
+  const [selectedVol, setSelectedVol] = useState(selectedContainerSize);
   const handleSizeSelection = (type, selectedSize) => {
     // Set the radio button which was selected
     setSelectedVol(selectedSize);
@@ -39,8 +40,8 @@ const ContainerSize = ({ sizes, updateSelectedSize }) => {
       <FormControl>
         <RadioGroup
           row
-          aria-label=""
-          name=""
+          aria-label={Content('en').pages.fragrances.containerSizes.ariaLabel}
+          name={Content('en').pages.fragrances.containerSizes.name}
           defaultValue="top"
           value={selectedVol}
         >
