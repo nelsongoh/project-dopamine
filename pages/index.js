@@ -35,6 +35,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// getStaticProps is required to make page "static" as using
+//  a custom server disables automatic static optimizations
+// custom server docs - https://nextjs.org/docs/advanced-features/custom-server
+// automatic static optimizations -  https://nextjs.org/docs/advanced-features/automatic-static-optimization
+//
+// without GSP - Cache-Control is set to `private` by the custom server disabling caching
+// with GSP - Cache-Control is set to `s-maxage=1, stale-while-revalidate`
+export const getStaticProps = async () => {
+  return {
+    props: {},
+  };
+};
+
 const Home = () => {
   const [headerBarHeight, setHeaderBarHeight] = useState(0);
   const classes = useStyles();
@@ -71,6 +84,9 @@ const Home = () => {
             height: `calc(100vh - ${headerBarHeight}px`,
             zIndex: -1,
           }}>
+            {/* <img
+              src="/assets/indexPage/desert-hot-air-balloon.jpg"
+            /> */}
             <Image
               src="/assets/indexPage/desert-hot-air-balloon.jpg"
               alt="Landing page image"
