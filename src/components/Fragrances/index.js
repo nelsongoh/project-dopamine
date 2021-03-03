@@ -29,6 +29,11 @@ const Fragrances = () => {
   const [dilutionLevel, setDilutionLevel] = useState(null);
   const [fragranceFunctions, setFragranceFunctions] = useState([]);
   const [chosenIngredients, setChosenIngredients] = useState([]);
+  let noteProportions = new Map();
+  noteProportions.set('top', 30);
+  noteProportions.set('mid', 40);
+  noteProportions.set('bot', 30);
+  const [noteRatios, setNoteRatios] = useState(noteProportions);
   const handleUpdateFragranceFunctions = (selectedFunctions) => {
     
     let tempChosenIngredients = fragranceData.ingredients.filter((ingr) => chosenIngredients.includes(ingr.name));
@@ -143,7 +148,10 @@ const Fragrances = () => {
               break;
             }
             case 4: {
-              stepComponent = <NoteProportion/>
+              stepComponent = <NoteProportion
+                noteRatios={noteRatios}
+                updateRatios={setNoteRatios}
+              />
               break;
             }
             default:
@@ -182,34 +190,6 @@ const Fragrances = () => {
         })}
       </Stepper>
     )
-    // <Grid container direction="column" alignContent="center">
-    //   <Grid item xs={12}>
-    //     <h1>Where the container size selections should be</h1>
-    //     <ContainerSize
-    //       sizes={fragranceData.containerSizes}
-    //       updateSelectedSize={setContainerSize}
-    //     />
-    //   </Grid>
-    //   <Grid item xs={12}>
-    //     <h1>Dilution level</h1>
-    //     <DilutionLevel
-    //       levels={fragranceData.dilutionLevels}
-    //       updateSelectedLevel={setDilutionLevel}
-    //     />
-    //   </Grid>
-    //   <Grid item xs={12}>
-    //     <h1>Select fragrance function</h1>
-    //   </Grid>
-    //   <Grid item xs={12}>
-    //     <h1>Select ingredients for Top, Middle, and Base notes</h1>
-    //   </Grid>
-    //   <Grid item xs={12}>
-    //     <h1>Adjust volume of Top, Middle, and Base notes (sums to 100%)</h1>
-    //   </Grid>
-    //   <Grid item xs={12}>
-    //     <h1>Assign droplet count for Top, Middle, and Base notes</h1>
-    //   </Grid>
-    // </Grid>
   );
 };
 
