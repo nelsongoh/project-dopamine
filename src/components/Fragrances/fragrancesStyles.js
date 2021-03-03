@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   stepContent: {
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
-  }
+  },
 }));
 
 export default useStyles;
