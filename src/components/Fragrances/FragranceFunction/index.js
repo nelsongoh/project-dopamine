@@ -7,6 +7,7 @@ import useStyles from './fragranceFunctionStyles';
 
 const FragranceFunction = ({ functions, updateSelectedFunction, ingredients }) => {
   const classes = useStyles();
+
   const toggleSelectedFunction = (funcName) => {
     const toggledFunction = {...functions, [funcName]: !functions[funcName]};
     updateSelectedFunction(toggledFunction);
