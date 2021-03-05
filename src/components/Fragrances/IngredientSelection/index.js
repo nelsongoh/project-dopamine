@@ -6,6 +6,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
+import NoteScaffold from '@/components/Fragrances/NoteScaffold';
 import useStyles from './ingredientSelectionStyles';
 import clsx from 'clsx';
 
@@ -141,15 +142,8 @@ const IngredientSelection = ({
           ))}
         </Grid>
       </Grid>
-      <Grid
-        container
-        item
-        direction="row"
-        justify="space-evenly"
-        alignItems="flex-start"
-      >
-        <Grid item xs={12} md={3}>
-          <Typography variant="h4" className={classes.title}>Top notes</Typography>
+      <NoteScaffold
+        topNoteContent={
           <FormGroup row>
             {
               selectableIngredients.filter((ingredient) => ingredient.notes.includes("top"))
@@ -174,10 +168,8 @@ const IngredientSelection = ({
                 ))
             }
           </FormGroup>
-        </Grid>
-        <Divider orientation="vertical" flexItem />
-        <Grid item xs={12} md={3}>
-          <Typography variant="h4" className={classes.title}>Middle notes</Typography>
+        }
+        midNoteContent={
           <FormGroup row>
             {
               selectableIngredients.filter((ingredient) => ingredient.notes.includes("middle"))
@@ -202,10 +194,8 @@ const IngredientSelection = ({
                 ))
             }
           </FormGroup>
-        </Grid>
-        <Divider orientation="vertical" flexItem />
-        <Grid item xs={12} md={3}>
-          <Typography variant="h4" className={classes.title}>Base notes</Typography>
+        }
+        baseNoteContent={
           <FormGroup row>
             {
               selectableIngredients.filter((ingredient) => ingredient.notes.includes("base"))
@@ -230,8 +220,8 @@ const IngredientSelection = ({
                 ))
             }
           </FormGroup>
-        </Grid>
-      </Grid>
+        }
+      />
     </Grid>
   );
 };
