@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -11,6 +10,7 @@ import DilutionLevel from './DilutionLevel';
 import FragranceFunction from './FragranceFunction';
 import IngredientSelection from './IngredientSelection';
 import NoteProportion from './NoteProportion';
+import DropletDistribution from './DropletDistribution';
 import LoadingScreen from '@/components/Loading/loading';
 import retrieveFragrancesContent from '@/client-lib/content/retrieveFragrancesContent';
 import { FragranceData } from '@/models/fragrances';
@@ -35,7 +35,6 @@ const Fragrances = () => {
   noteProportions.set('bot', 30);
   const [noteRatios, setNoteRatios] = useState(noteProportions);
   const handleUpdateFragranceFunctions = (selectedFunctions) => {
-    
     let tempChosenIngredients = fragranceData.ingredients.filter((ingr) => chosenIngredients.includes(ingr.name));
 
     // If there are specific fragrance functions that have been selected
@@ -152,6 +151,11 @@ const Fragrances = () => {
                 noteRatios={noteRatios}
                 updateRatios={setNoteRatios}
               />
+              break;
+            }
+            case 5: {
+              console.log(chosenIngredients);
+              stepComponent = <DropletDistribution />
               break;
             }
             default:
