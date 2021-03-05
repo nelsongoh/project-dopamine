@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import CustomSlider from './CustomSlider';
+import Content from '@/content';
 
 const NoteProportion = ({ noteRatios, updateRatios }) => {
   const lastNoteAdjIdxRef = useRef(0);
@@ -62,7 +63,7 @@ const NoteProportion = ({ noteRatios, updateRatios }) => {
     >
       <Grid item xs={12}>
         <Typography variant="h5" gutterBottom>
-          Top Note Proportions
+          {Content('en').pages.fragrances.noteProportions.topNote}
         </Typography>
         <CustomSlider
           value={noteRatios.get('top')}
@@ -75,7 +76,7 @@ const NoteProportion = ({ noteRatios, updateRatios }) => {
       </Grid>
       <Grid item xs={12}>
         <Typography variant="h5" gutterBottom>
-          Middle Note Proportions
+          {Content('en').pages.fragrances.noteProportions.midNote}
         </Typography>
         <CustomSlider
           value={noteRatios.get('mid')}
@@ -88,7 +89,7 @@ const NoteProportion = ({ noteRatios, updateRatios }) => {
       </Grid>
       <Grid item xs={12}>
         <Typography variant="h5" gutterBottom>
-          Base Note Proportions
+          {Content('en').pages.fragrances.noteProportions.botNote}
         </Typography>
         <CustomSlider
           value={noteRatios.get('bot')}
