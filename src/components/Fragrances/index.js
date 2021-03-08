@@ -49,6 +49,8 @@ const Fragrances = () => {
   noteProportions.set('middle', 40);
   noteProportions.set('base', 30);
   const [noteRatios, setNoteRatios] = useState(noteProportions);
+  const [noteDropletCapacity, setNoteDropletCapacity] = useState({ top: -1, middle: -1, base: -1 });
+  const [dropletAssignment, setDropletAssignment] = useState({ top: {}, middle: {}, base: {} });
   const handleUpdateFragranceFunctions = (selectedFunctions) => {
     // Format the output
     let outputChosenIngredients = {...chosenIngredients};
@@ -111,6 +113,7 @@ const Fragrances = () => {
     setFragranceFunctions(selectedFunctions);
   }
 
+  // This gets triggered once when the component mounts
   useEffect(() => {
     const getFragrancesData = async () => {
       const resp = await retrieveFragrancesContent();
@@ -138,7 +141,22 @@ const Fragrances = () => {
     }
 
     getFragrancesData();
-  }, []);  
+  }, []);
+
+  const [shouldRecalcDistrib, setShouldRecalcDistrib] = useState(true);
+  const turnOffRecalcDistrib = () => {
+    setShouldRecalcDistrib(false);
+  };
+  /**
+   * This useEffect hook listens for changes to any of the factors
+   * which may affect the number of droplets, and triggers a flag
+   * to indicate a need for the DropletDistribution sub-component
+   * to perform a re-calculation
+   */
+  useEffect(() => {
+    setShouldRecalcDistrib(true);
+  }, [chosenIngredients, noteRatios, containerSize.value, dilutionLevel]);
+  
 
   const getStepContent = (step) => {
     if (step >= 0 && step < Content('en').pages.fragrances.stepDesc.length) {
@@ -150,11 +168,79 @@ const Fragrances = () => {
 
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
+    // Need to write validation methods to ensure that access to the next step is valid
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   }
+
+  const isStepValid = (currStep) => {
+    switch (currStep) {
+      // For the Container Size step
+      case 0: {
+        // If the container size is a valid number, the step is valid
+        if (Number.isInteger(containerSize.value) && containerSize.value > 0) {
+          return true;
+        }
+        return false;
+      }
+      // For the Dilution Level step
+      case 1: {
+        // If the dilution level is a valid number, the step is valid
+        if (Number.isInteger(dilutionLevel) && dilutionLevel > 0) {
+          return true;
+        }
+        return false;
+      }
+      // For the Fragrance Function step
+      case 2: {
+        // No validation step required here
+        return true;
+      }
+      // For the Ingredient Selection step
+      case 3: {
+        // If at least one ingredient has been selected, the step is valid
+        let numIngredientsSelected = 0;
+        Object.values(chosenIngredients).forEach((noteIngr) => numIngredientsSelected += noteIngr.size);
+        if (numIngredientsSelected > 0) {
+          return true;
+        }
+        return false;
+      }
+      // For the Note Proportion step
+      case 4: {
+        // If the sum of all proportions across note types equal to 100,
+        // the step is valid
+        let proportionSum = 0;
+        for (let noteProportion of noteRatios.values()) {
+          proportionSum += noteProportion;
+        }
+        if (proportionSum === 100) {
+          return true;
+        }
+        return false;
+      }
+      // For the Droplet Distribution step
+      case 5: {
+        // If all the droplets distributed is equal to the max number of droplets
+        // the step is valid
+        const totalNoteDropletCapacity = Object.values(noteDropletCapacity).reduce((acc, noteMax) => acc + noteMax);
+        let totalAssignedDroplets = 0;
+        Object.values(dropletAssignment).forEach((ingrObj) => {
+          Object.values(ingrObj).forEach((ingrDropletsAssigned) => {
+            totalAssignedDroplets += ingrDropletsAssigned;
+          });
+        })
+        if (totalAssignedDroplets === totalNoteDropletCapacity) {
+          return true;
+        }
+        return false;
+      }
+      default:
+        return false;
+    }
+  };
 
   return (
     isLoading ? <LoadingScreen isOpen={true} /> : (
@@ -210,6 +296,12 @@ const Fragrances = () => {
                 noteProportions={noteRatios}
                 containerVolume={containerSize.value}
                 dilution={dilutionLevel}
+                maxDropletCount={noteDropletCapacity}
+                updateMaxDropletCount={setNoteDropletCapacity}
+                assignedDroplets={dropletAssignment}
+                updateAssignedDroplets={setDropletAssignment}
+                shouldRecalculate={shouldRecalcDistrib}
+                toggleRecalculateOff={turnOffRecalcDistrib}
               />
               break;
             }
@@ -236,7 +328,8 @@ const Fragrances = () => {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleNext}
+                      disabled={!isStepValid(activeStep)}
+                      onClick={() => { handleNext(activeStep) }}
                       className={classes.button}
                     >
                       {activeStep === Content('en').pages.fragrances.steps.length - 1 ? "Finish" : "Next"}
