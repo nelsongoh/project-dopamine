@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import useStyles from './fragranceFunctionStyles';
 import NoteScaffold from '@/components/Fragrances/NoteScaffold';
 
