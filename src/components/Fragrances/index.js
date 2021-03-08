@@ -24,18 +24,44 @@ const Fragrances = () => {
   const classes = useStyles();
   const [isLoading, setIsLoading] = useState(true);
   const [fragranceData, setFragranceData] = useState(FragranceData());
-
-  const [containerSize, setContainerSize] = useState(null);
+  const [containerSize, setContainerSize] = useState({ selected: null, value: null });
   const [dilutionLevel, setDilutionLevel] = useState(null);
   const [fragranceFunctions, setFragranceFunctions] = useState([]);
-  const [chosenIngredients, setChosenIngredients] = useState([]);
+  /**
+   * chosenIngredients follows a data structure of:
+   * {
+   *    top: Set(
+   *      ingredient #1,
+   *      ingredient #2,
+   *      ...
+   *    ),
+   *    middle: Set(
+   *      ...
+   *    ),
+   *    base: Set(
+   *      ...
+   *    ),
+   * }
+   */
+  const [chosenIngredients, setChosenIngredients] = useState({ top: new Set(), middle: new Set(), base: new Set() });
   let noteProportions = new Map();
   noteProportions.set('top', 30);
-  noteProportions.set('mid', 40);
-  noteProportions.set('bot', 30);
+  noteProportions.set('middle', 40);
+  noteProportions.set('base', 30);
   const [noteRatios, setNoteRatios] = useState(noteProportions);
   const handleUpdateFragranceFunctions = (selectedFunctions) => {
-    let tempChosenIngredients = fragranceData.ingredients.filter((ingr) => chosenIngredients.includes(ingr.name));
+    // Format the output
+    let outputChosenIngredients = {...chosenIngredients};
+
+    // Filter out ingredients that were already chosen by the user
+    let tempChosenIngredients = fragranceData.ingredients.filter((ingr) => {
+      for (let i = 0; i < Object.keys(chosenIngredients).length; i += 1) {
+        if (chosenIngredients[Object.keys(chosenIngredients)[i]].has(ingr.name)) {
+          return true;
+        }
+      }
+      return false;
+    });
 
     // If there are specific fragrance functions that have been selected
     if (!Object.values(selectedFunctions).every((func) => func === false)) {
@@ -43,23 +69,45 @@ const Fragrances = () => {
       // previously chosen (if any), but no longer available due to
       // the de-selection of certain functions
       
+      // Get the functions which were selected
       const selectedFuncs = Object.keys(selectedFunctions)
         .filter((eachFunc) => selectedFunctions[eachFunc] === true)
         .map((eachFunc) => eachFunc.toLowerCase());
 
+      // Include ingredients that have the selected function(s)
+      // and remove those that do not
       tempChosenIngredients = tempChosenIngredients
         .filter((ingr) => {
+          let isIngrValid = false;
+
           for (let i = 0; i < ingr.functions.length; i += 1) {
             if (selectedFuncs.includes(ingr.functions[i])) {
-              return true;
+              isIngrValid = true;
+              break;
             }
           }
-          return false;
-        })
-        .map((ingr) => ingr.name);
+
+          Object.keys(outputChosenIngredients).forEach((noteType) => {
+            if (outputChosenIngredients[noteType].has(ingr.name) && !isIngrValid) {
+              outputChosenIngredients[noteType].delete(ingr.name);
+            }
+          });
+
+          return isIngrValid;
+        });
     }
 
-    setChosenIngredients(tempChosenIngredients);
+    tempChosenIngredients.forEach((ingr) => {
+      ingr.notes.forEach((noteType) => {
+        // Check to make sure that the outputChosenIngredients has this given note type
+        if (Object.hasOwnProperty.call(outputChosenIngredients, noteType)) {
+          // We include the name of this ingredient to the output
+          outputChosenIngredients[noteType].add(ingr.name);
+        }
+      })
+    });
+
+    setChosenIngredients(outputChosenIngredients);
     setFragranceFunctions(selectedFunctions);
   }
 
@@ -75,7 +123,10 @@ const Fragrances = () => {
           functions: resp.data.functions,
           ingredients: resp.data.ingredients,
         });
-        setContainerSize(resp.data.containerSizeInMl[0]);
+        setContainerSize({
+          selected: resp.data.containerSizeInMl[0],
+          value: resp.data.containerSizeInMl[0]
+        });
         setDilutionLevel(resp.data.dilutionLevelPercent[0]);
         setFragranceFunctions(
           fragranceFunctionsToSelectables(resp.data.functions)
@@ -154,8 +205,12 @@ const Fragrances = () => {
               break;
             }
             case 5: {
-              console.log(chosenIngredients);
-              stepComponent = <DropletDistribution />
+              stepComponent = <DropletDistribution
+                selectedIngredients={chosenIngredients}
+                noteProportions={noteRatios}
+                containerVolume={containerSize.value}
+                dilution={dilutionLevel}
+              />
               break;
             }
             default:
