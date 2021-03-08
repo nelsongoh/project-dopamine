@@ -79,8 +79,8 @@ const NoteProportion = ({ noteRatios, updateRatios }) => {
           {Content('en').pages.fragrances.noteProportions.midNote}
         </Typography>
         <CustomSlider
-          value={noteRatios.get('mid')}
-          onChange={(e, val) => updateProportions('mid', val)}
+          value={noteRatios.get('middle')}
+          onChange={(e, val) => updateProportions('middle', val)}
           step={10}
           min={0}
           max={100}
@@ -92,8 +92,8 @@ const NoteProportion = ({ noteRatios, updateRatios }) => {
           {Content('en').pages.fragrances.noteProportions.botNote}
         </Typography>
         <CustomSlider
-          value={noteRatios.get('bot')}
-          onChange={(e, val) => updateProportions('bot', val)}
+          value={noteRatios.get('base')}
+          onChange={(e, val) => updateProportions('base', val)}
           step={10}
           min={0}
           max={100}
