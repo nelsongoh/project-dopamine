@@ -1,36 +1,38 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import NoteScaffold from '@/components/Fragrances/NoteScaffold';
 import DropletCounter from './DropletCounter';
 
 const DropletDistribution = ({
   selectedIngredients, noteProportions, containerVolume, dilution,
+  maxDropletCount, updateMaxDropletCount, assignedDroplets, updateAssignedDroplets,
+  shouldRecalculate, toggleRecalculateOff,
 }) => {
-  const maxNoteDropletCountRef = useRef({ top: -1, middle: -1, base: -1 });
-  const [dropletCountState, setDropletCountState] = useState({ top: {}, middle: {}, base: {} });
   const updateDropletCount = (noteType, updateType, ingredient) => {
-    let newDropletCount = dropletCountState[noteType][ingredient];
-    if (Object.hasOwnProperty.call(maxNoteDropletCountRef.current, noteType)) {
+    let newDropletCount = assignedDroplets[noteType][ingredient];
+    if (Object.hasOwnProperty.call(maxDropletCount, noteType)) {
       if (updateType === 'ADD') {
         // If we want to add another droplet, there must be some spare droplets
         // for us to add for this note type
-        const currNoteDropletCountState = Object.values(dropletCountState[noteType]).reduce((accum, val) => accum + val);
-        if (currNoteDropletCountState < maxNoteDropletCountRef.current[noteType]) {
+        const currNoteDropletCountState = Object.values(assignedDroplets[noteType]).reduce((accum, val) => accum + val);
+        if (currNoteDropletCountState < maxDropletCount[noteType]) {
           newDropletCount += 1;
         }
       } else if (updateType === 'REMOVE') {
         // If we want to remove a droplet, there must be droplets for us
         // to remove from this particular ingredient
-        if (dropletCountState[noteType][ingredient] > 0) {
+        if (assignedDroplets[noteType][ingredient] > 0) {
           newDropletCount -= 1;
         }
       }
-      setDropletCountState({
-        ...dropletCountState,
+
+      const updatedCountState = {
+        ...assignedDroplets,
         [noteType]: {
-          ...dropletCountState[noteType],
+          ...assignedDroplets[noteType],
           [ingredient]: newDropletCount,
         }
-      });
+      };
+      updateAssignedDroplets(updatedCountState);
     }
   };
 
@@ -58,11 +60,11 @@ const DropletDistribution = ({
       base: noteProportions.get('base') > 0 ? Math.max(Math.round((noteProportions.get('base') / 100) * totalDroplets), 1) : 0,
     };
 
-    maxNoteDropletCountRef.current = noteDropletDistrib;
+    return noteDropletDistrib;
   };
 
   // This function will utilise the business logic to determine the allocated droplet count
-  const allocateDropletCount = () => {
+  const allocateDropletCount = (maxDroplets) => {
     /**
      * The data structure for the droplet allocation will consist of keys
      * which correspond to the note type. The value of the key will be an
@@ -92,8 +94,8 @@ const DropletDistribution = ({
     Object.keys(selectedIngredients).forEach((noteType) => {
       if (Object.hasOwnProperty.call(dropletAllocation, noteType)) {
         const numIngredientsForNote = selectedIngredients[noteType].size;
-        const numDropletsPerIngr = Number.parseInt(maxNoteDropletCountRef.current[noteType] / numIngredientsForNote);
-        let remainingDroplets = maxNoteDropletCountRef.current[noteType] % numIngredientsForNote;
+        const numDropletsPerIngr = Number.parseInt(maxDroplets[noteType] / numIngredientsForNote);
+        let remainingDroplets = maxDroplets[noteType] % numIngredientsForNote;
         
         for (let ingrName of selectedIngredients[noteType]) {
           // If there are remaining droplets left to add
@@ -117,40 +119,43 @@ const DropletDistribution = ({
    * and update it when the selected ingredients change
   */
   useEffect(() => {
-    allocateMaxNoteDropletCount();
-    const outputState = allocateDropletCount();
-    setDropletCountState(outputState);
-  }, [selectedIngredients, noteProportions, containerVolume, dilution]);
+    if (shouldRecalculate) {
+      const maxDroplets = allocateMaxNoteDropletCount();
+      const outputState = allocateDropletCount(maxDroplets);
+      updateAssignedDroplets(outputState);
+      updateMaxDropletCount(maxDroplets);
+      toggleRecalculateOff();
+    }
+  }, [shouldRecalculate]);
 
-  
   return (
     <NoteScaffold
       topNoteContent={
-        Object.keys(dropletCountState.top).map((ingrName) => (
+        Object.keys(assignedDroplets.top).map((ingrName) => (
           <DropletCounter
             key={Math.random()}
             ingredientName={ingrName}
-            dropletCount={dropletCountState.top[ingrName]}
+            dropletCount={assignedDroplets.top[ingrName]}
             updateDropletCount={updateDropletCountNoteWrapper('top')}
           />
         ))
       }
       midNoteContent={
-        Object.keys(dropletCountState.middle).map((ingrName) => (
+        Object.keys(assignedDroplets.middle).map((ingrName) => (
           <DropletCounter
             key={Math.random()}
             ingredientName={ingrName}
-            dropletCount={dropletCountState.middle[ingrName]}
+            dropletCount={assignedDroplets.middle[ingrName]}
             updateDropletCount={updateDropletCountNoteWrapper('middle')}
           />
         ))
       }
       baseNoteContent={
-        Object.keys(dropletCountState.base).map((ingrName) => (
+        Object.keys(assignedDroplets.base).map((ingrName) => (
           <DropletCounter
             key={Math.random()}
             ingredientName={ingrName}
-            dropletCount={dropletCountState.base[ingrName]}
+            dropletCount={assignedDroplets.base[ingrName]}
             updateDropletCount={updateDropletCountNoteWrapper('base')}
           />
         ))
