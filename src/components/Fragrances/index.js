@@ -168,8 +168,9 @@ const Fragrances = () => {
 
   const [activeStep, setActiveStep] = useState(0);
   const handleNext = () => {
-    // Need to write validation methods to ensure that access to the next step is valid
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setActiveStep((prevActiveStep) => (
+      isStepValid(prevActiveStep) ? prevActiveStep + 1 : prevActiveStep
+    ));
   };
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
