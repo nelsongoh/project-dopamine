@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Chip from '@material-ui/core/Chip';
+import NoteScaffold from '@/components/Fragrances/NoteScaffold';
 import useStyles from './ingredientSelectionStyles';
 import clsx from 'clsx';
 
@@ -42,42 +42,68 @@ const IngredientSelection = ({
   };
   const initSelectedIngredients = () => {
     // Set up the selectedIngredients state
-    let tempSelectedIngredients = {};
+    let tempSelectedIngredients = { top: {}, middle: {}, base: {} };
     ingredients.map((eachIngredient) => {
-      // If the ingredient is something that the user has already chosen, mark it as true
-      if (chosenIngredients.includes(eachIngredient.name)) {
-        tempSelectedIngredients[eachIngredient.name] = true;
-      } else {
-        tempSelectedIngredients[eachIngredient.name] = false;
+      // For each of the note categories this ingredient is in
+      for (let i = 0; i < eachIngredient.notes.length; i += 1) {
+        /**
+         * The chosenIngredients data structure should look like:
+         * {
+         *    top: Set(...),
+         *    middle: Set(...),
+         *    base: Set(...),
+         * }
+         */
+
+        // If the ingredient is something that the user has already chosen, mark it as true
+        if (Object.hasOwnProperty.call(chosenIngredients, eachIngredient.notes[i])) {
+          if (chosenIngredients[eachIngredient.notes[i]].has(eachIngredient.name)) {
+            tempSelectedIngredients[eachIngredient.notes[i]][eachIngredient.name] = true;
+          } else {
+            tempSelectedIngredients[eachIngredient.notes[i]][eachIngredient.name] = false;
+          }
+        } else {
+          tempSelectedIngredients[eachIngredient.notes[i]][eachIngredient.name] = false;
+        }
       }
     });
     return tempSelectedIngredients;
   };
   // These are the ingredients which the user has actually selected
   const [selectedIngredients, setSelectedIngredients] = useState(initSelectedIngredients());
-  const toggleSelectIngredient = (ingredientName) => {
-    let isIngredientSelected = !selectedIngredients[ingredientName];
-    let tempNewChosenIngredients = [...chosenIngredients];
-    // If we are going to select this ingredient
-    if (isIngredientSelected) {
-      // Only if the ingredient isn't already in the list 
-      if (!chosenIngredients.includes(ingredientName)) {
-        // We add the ingredient to the list
-        tempNewChosenIngredients.push(ingredientName);
+  const toggleSelectIngredient = (ingredientName, noteType) => {
+    let isIngredientSelected = !selectedIngredients[noteType][ingredientName];
+    let tempNewChosenIngredients = {...chosenIngredients};
+
+    // If the list of chosen ingredients has this particular note type
+    if (Object.hasOwnProperty.call(chosenIngredients, noteType)) {
+      // If we are going to select this ingredient
+      if (isIngredientSelected) {
+        // Only if the ingredient isn't already in the list
+        if (!chosenIngredients[noteType].has(ingredientName)) {
+          // We add the ingredient to the list
+          tempNewChosenIngredients[noteType].add(ingredientName);
+        }
+      } else {
+        // Else this ingredient is going to be removed
+        // Only if this ingredient is in the list
+        if (chosenIngredients[noteType].has(ingredientName)) {
+          // Then we remove it
+          tempNewChosenIngredients[noteType].delete(ingredientName);
+        }
       }
     } else {
-      // Else this ingredient is going to be removed
-      // Only if this ingredient is in the list
-      if (chosenIngredients.includes(ingredientName)) {
-        // Then we remove it
-        let idxToRemove = chosenIngredients.indexOf(ingredientName);
-        tempNewChosenIngredients.splice(idxToRemove, 1);
-      }
+
     }
+
     // We update the list of chosen ingredients
     updateChosenIngredients(tempNewChosenIngredients);
     // Then we update the local list of selected ingredients (To update the checkboxes)
-    setSelectedIngredients({...selectedIngredients, [ingredientName]: !selectedIngredients[ingredientName]});
+    setSelectedIngredients({
+      ...selectedIngredients, [noteType]: {
+        ...selectedIngredients[noteType], [ingredientName]: !selectedIngredients[noteType][ingredientName]
+      }
+    });
   };
 
   const isTextDeEmphasized = (ingredientFuncs) => {
@@ -141,15 +167,8 @@ const IngredientSelection = ({
           ))}
         </Grid>
       </Grid>
-      <Grid
-        container
-        item
-        direction="row"
-        justify="space-evenly"
-        alignItems="flex-start"
-      >
-        <Grid item xs={12} md={3}>
-          <Typography variant="h4" className={classes.title}>Top notes</Typography>
+      <NoteScaffold
+        topNoteContent={
           <FormGroup row>
             {
               selectableIngredients.filter((ingredient) => ingredient.notes.includes("top"))
@@ -158,8 +177,8 @@ const IngredientSelection = ({
                     key={Math.random()}
                     control={
                       <Checkbox
-                        checked={selectedIngredients[topNoteIngredients.name]}
-                        onChange={() => { toggleSelectIngredient(topNoteIngredients.name) }}
+                        checked={selectedIngredients.top[topNoteIngredients.name]}
+                        onChange={() => { toggleSelectIngredient(topNoteIngredients.name, "top") }}
                         name={topNoteIngredients.name}
                         color="secondary"
                       />
@@ -174,10 +193,8 @@ const IngredientSelection = ({
                 ))
             }
           </FormGroup>
-        </Grid>
-        <Divider orientation="vertical" flexItem />
-        <Grid item xs={12} md={3}>
-          <Typography variant="h4" className={classes.title}>Middle notes</Typography>
+        }
+        midNoteContent={
           <FormGroup row>
             {
               selectableIngredients.filter((ingredient) => ingredient.notes.includes("middle"))
@@ -186,8 +203,8 @@ const IngredientSelection = ({
                     key={Math.random()}
                     control={
                       <Checkbox
-                        checked={selectedIngredients[middleNoteIngredients.name]}
-                        onChange={() => { toggleSelectIngredient(middleNoteIngredients.name) }}
+                        checked={selectedIngredients.middle[middleNoteIngredients.name]}
+                        onChange={() => { toggleSelectIngredient(middleNoteIngredients.name, "middle") }}
                         name={middleNoteIngredients.name}
                         color="secondary"
                       />
@@ -202,10 +219,8 @@ const IngredientSelection = ({
                 ))
             }
           </FormGroup>
-        </Grid>
-        <Divider orientation="vertical" flexItem />
-        <Grid item xs={12} md={3}>
-          <Typography variant="h4" className={classes.title}>Base notes</Typography>
+        }
+        baseNoteContent={
           <FormGroup row>
             {
               selectableIngredients.filter((ingredient) => ingredient.notes.includes("base"))
@@ -214,8 +229,8 @@ const IngredientSelection = ({
                     key={Math.random()}
                     control={
                       <Checkbox
-                        checked={selectedIngredients[baseNoteIngredients.name]}
-                        onChange={() => { toggleSelectIngredient(baseNoteIngredients.name) }}
+                        checked={selectedIngredients.base[baseNoteIngredients.name]}
+                        onChange={() => { toggleSelectIngredient(baseNoteIngredients.name, "base") }}
                         name={baseNoteIngredients.name}
                         color="secondary"
                       />
@@ -230,8 +245,8 @@ const IngredientSelection = ({
                 ))
             }
           </FormGroup>
-        </Grid>
-      </Grid>
+        }
+      />
     </Grid>
   );
 };

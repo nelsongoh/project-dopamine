@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import useStyles from './fragranceFunctionStyles';
+import NoteScaffold from '@/components/Fragrances/NoteScaffold';
 
 const FragranceFunction = ({ functions, updateSelectedFunction, ingredients }) => {
   const classes = useStyles();
@@ -36,16 +34,9 @@ const FragranceFunction = ({ functions, updateSelectedFunction, ingredients }) =
   const [functionsForNote, setFunctionsForNote] = useState(mapFunctionsToNoteType());
 
   return (
-    <Grid
-      container
-      item
-      direction="row"
-      justify="space-evenly"
-      alignItems="flex-start"
-    >
-      <Grid item xs={12} md={3}>
-        <Typography variant="h4" className={classes.title}>Top notes</Typography>
-        {functionsForNote.top.map((eachFunction) => {
+    <NoteScaffold
+      topNoteContent={
+        functionsForNote.top.map((eachFunction) => {
           return (
             <Chip
               key={Math.random()}
@@ -55,13 +46,11 @@ const FragranceFunction = ({ functions, updateSelectedFunction, ingredients }) =
               label={eachFunction}
               onClick={() => { toggleSelectedFunction(eachFunction) }}
             />
-          );
-        })}
-      </Grid>
-      <Divider orientation="vertical" flexItem />
-      <Grid item xs={12} md={3}>
-        <Typography variant="h4" className={classes.title}>Middle notes</Typography>
-        {functionsForNote.middle.map((eachFunction) => {
+          )
+        })
+      }
+      midNoteContent={
+        functionsForNote.middle.map((eachFunction) => {
           return (
             <Chip
               key={Math.random()}
@@ -71,13 +60,11 @@ const FragranceFunction = ({ functions, updateSelectedFunction, ingredients }) =
               label={eachFunction}
               onClick={() => { toggleSelectedFunction(eachFunction) }}
             />
-          );
-        })}
-      </Grid>
-      <Divider orientation="vertical" flexItem />
-      <Grid item xs={12} md={3}>
-        <Typography variant="h4" className={classes.title}>Base notes</Typography>
-        {functionsForNote.base.map((eachFunction) => {
+          )
+        })
+      }
+      baseNoteContent={
+        functionsForNote.base.map((eachFunction) => {
           return (
             <Chip
               key={Math.random()}
@@ -87,10 +74,10 @@ const FragranceFunction = ({ functions, updateSelectedFunction, ingredients }) =
               label={eachFunction}
               onClick={() => { toggleSelectedFunction(eachFunction) }}
             />
-          );
-        })}
-      </Grid>
-    </Grid>
+          )
+        })
+      }
+    />
   );
 };
 

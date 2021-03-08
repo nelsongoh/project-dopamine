@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -14,24 +14,21 @@ const ContainerSize = ({ selectedContainerSize, sizes, updateSelectedSize }) => 
   const handleCustomVolSelection = (customVolNum) => {
     shouldFocusRef.current = true;
     setCustomVol(customVolNum);
+    updateSelectedSize({selected: "custom", value: customVolNum});
   };
-  const [selectedVol, setSelectedVol] = useState(selectedContainerSize);
   const handleSizeSelection = (type, selectedSize) => {
-    // Set the radio button which was selected
-    setSelectedVol(selectedSize);
-
     // For pre-defined radio button sizes, the actual size IS the selected radio value
     if (type === "predef") {
       if (isVolumeValid(selectedSize)) {
         shouldFocusRef.current = false;
-        updateSelectedSize(selectedSize);
+        updateSelectedSize({selected: selectedSize, value: selectedSize});
       }
     } else if (type === "custom") {
       // If we have a reference to the Textfield, we focus on it
       shouldFocusRef.current = true;
       // Else if we're looking at the custom textfield, the size for the custom value is stored in another state
-      if (isVolumeValid(selectedSize)) {
-        updateSelectedSize(customVol);
+      if (isVolumeValid(customVol || selectedContainerSize.value)) {
+        updateSelectedSize({selected: type, value: customVol || selectedContainerSize.value});
       }
     }
   };
@@ -43,7 +40,7 @@ const ContainerSize = ({ selectedContainerSize, sizes, updateSelectedSize }) => 
           aria-label={Content('en').pages.fragrances.containerSizes.ariaLabel}
           name={Content('en').pages.fragrances.containerSizes.name}
           defaultValue="top"
-          value={selectedVol}
+          value={selectedContainerSize.selected}
         >
           {sizes.map((eachSize) => (
             <FormControlLabel
@@ -61,7 +58,7 @@ const ContainerSize = ({ selectedContainerSize, sizes, updateSelectedSize }) => 
             label={
               <TextField
                 type="number"
-                value={customVol}
+                value={customVol || selectedContainerSize.value}
                 onChange={(e) => handleCustomVolSelection(Number(e.target.value))}
                 InputProps={{
                   endAdornment: <InputAdornment position="end">ml</InputAdornment>,
@@ -80,7 +77,7 @@ const ContainerSize = ({ selectedContainerSize, sizes, updateSelectedSize }) => 
             }
             value={'custom'}
             labelPlacement="top"
-            onChange={(e) => { handleSizeSelection('custom', e.target.value) }}
+            onChange={() => { handleSizeSelection('custom') }}
           />
         </RadioGroup>
       </FormControl>

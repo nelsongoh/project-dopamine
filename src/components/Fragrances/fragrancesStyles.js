@@ -2,6 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   actionsContainer: {
+    marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
   button: {

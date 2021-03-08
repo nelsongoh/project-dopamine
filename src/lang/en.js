@@ -57,10 +57,20 @@ const Content = {
         ariaLabel: "Container size selection",
         name: "ContainerSizeSelection",
       },
+      noteTypes: {
+        top: "Top Notes",
+        mid: "Middle Notes",
+        base: "Base Notes",
+      },
       dilutionLevels: {
         ariaLabel: "Dilution level selection",
         name: "DilutionLevelSelection",
       },
+      noteProportions: {
+        topNote: "Top Note Proportions",
+        midNote: "Middle Note Proportions",
+        botNote: "Base Note Proportions",
+      }
     },
     admin: {
       users: {
