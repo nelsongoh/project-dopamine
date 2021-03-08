@@ -16,14 +16,14 @@ const DropletCounter = ({
   return (
     <Card className={classes.cardDisplay}>
       <CardContent>
-        <Typography variant="subtitle1">This is a really long test</Typography>
+        <Typography variant="subtitle1">{ingredientName}</Typography>
       </CardContent>
       <Divider />
       <CardActions
         className={classes.controls}
       >
         <IconButton
-          onClick={() => {}}
+          onClick={() => { updateDropletCount('REMOVE', ingredientName) }}
         >
           <Icon>remove</Icon>
         </IconButton>
@@ -31,10 +31,13 @@ const DropletCounter = ({
           className={classes.text}
           size="small"
           variant="outlined"
-          value="478"
+          value={dropletCount}
+          InputProps={{
+            readOnly: true,
+          }}
         />
         <IconButton
-          onClick={() => {}}
+          onClick={() => { updateDropletCount('ADD', ingredientName) }}
         >
           <Icon>add</Icon>
         </IconButton>
