@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Typography from '@material-ui/core/Typography';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -19,6 +19,7 @@ import {
   fragranceFunctionsToSelectables, selectedFragranceFunctionsToArray 
 } from '@/utils/fragrances';
 import useStyles from './fragrancesStyles';
+import { cloneDeep } from 'lodash';
 
 const Fragrances = () => {
   const classes = useStyles();
@@ -43,12 +44,85 @@ const Fragrances = () => {
    *    ),
    * }
    */
+  const prevChosenIngredients = useRef({ top: new Set(), middle: new Set(), base: new Set() });
   const [chosenIngredients, setChosenIngredients] = useState({ top: new Set(), middle: new Set(), base: new Set() });
-  let noteProportions = new Map();
-  noteProportions.set('top', 30);
-  noteProportions.set('middle', 40);
-  noteProportions.set('base', 30);
-  const [noteRatios, setNoteRatios] = useState(noteProportions);
+  const [noteRatios, setNoteRatios] = useState(new Map());
+  /**
+   * This useEffect hook will listen for changes to the chosen ingredients
+   * and re-distribute the note proportions accordingly
+   */
+  useEffect(() => {
+    // We check if the previous state's availability of ingredients in each note type
+    // is the same as the next state: If it is the same, we don't do anything
+    let isAvailabilitySimilar = Object.keys(prevChosenIngredients.current).every((note) => (
+      (prevChosenIngredients.current[note].size !== 0) === (chosenIngredients[note].size !== 0)
+    ));
+
+    if (!isAvailabilitySimilar) {
+      let noteProportions = new Map();
+      // We look for note types with available ingredients
+      let areIngredientsAvailable = {
+        top: chosenIngredients.top.size !== 0,
+        middle: chosenIngredients.middle.size !== 0,
+        base: chosenIngredients.base.size !== 0,
+      };
+
+      let availableIngredientsNoteTypeCount = Object.values(areIngredientsAvailable).filter((isAvailable) => isAvailable).length;
+      switch (availableIngredientsNoteTypeCount) {
+        // If we have 3 note types with available ingredients,
+        // the proportion will be 30-40-30
+        case 3: {
+          noteProportions.set('top', 30);
+          noteProportions.set('middle', 40);
+          noteProportions.set('base', 30);
+          break;
+        }
+
+        // If there are 2 note types with available ingredients,
+        // the proportion will be 60-40
+        case 2: {
+          let isSixtySet = false;
+          Object.keys(areIngredientsAvailable).forEach((noteType) => {
+            if (areIngredientsAvailable[noteType] === true) {
+              if (!isSixtySet) {
+                noteProportions.set(noteType, 60);
+                isSixtySet = true;
+              } else {
+                noteProportions.set(noteType, 40);
+              }
+            } else {
+              noteProportions.set(noteType, 0);
+            }
+          })
+          break;
+        }
+
+        // If there's only 1 note type with available ingredients,
+        // the proportion will be 100
+        case 1: {
+          Object.keys(areIngredientsAvailable).forEach((noteType) => {
+            if (areIngredientsAvailable[noteType] === true) {
+              noteProportions.set(noteType, 100);
+            } else {
+              noteProportions.set(noteType, 0);
+            }
+          })
+          break;
+        }
+        
+        // Otherwise the proportion will be 0
+        default: {
+          Object.keys(areIngredientsAvailable).forEach((noteType) => {
+            noteProportions.set(noteType, 0);
+          })
+          break;
+        }
+      }
+      setNoteRatios(noteProportions);
+      prevChosenIngredients.current = cloneDeep(chosenIngredients);
+    }
+  }, [chosenIngredients])
+  
   const [noteDropletCapacity, setNoteDropletCapacity] = useState({ top: -1, middle: -1, base: -1 });
   const [dropletAssignment, setDropletAssignment] = useState({ top: {}, middle: {}, base: {} });
   const handleUpdateFragranceFunctions = (selectedFunctions) => {
@@ -286,6 +360,7 @@ const Fragrances = () => {
             }
             case 4: {
               stepComponent = <NoteProportion
+                selectedIngredients={chosenIngredients}
                 noteRatios={noteRatios}
                 updateRatios={setNoteRatios}
               />
