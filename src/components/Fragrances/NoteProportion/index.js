@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import CustomSlider from './CustomSlider';
 import Content from '@/content';
 
-const NoteProportion = ({ noteRatios, updateRatios }) => {
+const NoteProportion = ({ selectedIngredients, noteRatios, updateRatios }) => {
   const lastNoteAdjIdxRef = useRef(0);
   const sliderMarks = Array(11).fill().map((val, idx) => (
     {
@@ -22,7 +22,7 @@ const NoteProportion = ({ noteRatios, updateRatios }) => {
     // We start with all the note types except the one that we're already adjusting
     // i.e. If I'm adjusting the 'Top' note slider, don't adjust the proportion
     // of this particular slider, adjust something else
-    let validNoteTypeAdj = Array.from(currProportions.keys()).filter((note) => note !== noteType);
+    let validNoteTypeAdj = Object.keys(selectedIngredients).filter((note) => selectedIngredients[note].size > 0).filter((note) => note !== noteType);
 
     // If the total exceeded value is above 0,
     // then we need to reduce the value of the other note type proportions
@@ -66,7 +66,11 @@ const NoteProportion = ({ noteRatios, updateRatios }) => {
           {Content('en').pages.fragrances.noteProportions.topNote}
         </Typography>
         <CustomSlider
-          value={noteRatios.get('top')}
+          disabled={selectedIngredients.top.size === 0}
+          value={
+            selectedIngredients.top.size === 0 ? 0 :
+            noteRatios.get('top')
+          }
           onChange={(e, val) => updateProportions('top', val)}
           step={10}
           min={0}
@@ -79,7 +83,11 @@ const NoteProportion = ({ noteRatios, updateRatios }) => {
           {Content('en').pages.fragrances.noteProportions.midNote}
         </Typography>
         <CustomSlider
-          value={noteRatios.get('middle')}
+          disabled={selectedIngredients.middle.size === 0}
+          value={
+            selectedIngredients.middle.size === 0 ? 0 :
+            noteRatios.get('middle')
+          }
           onChange={(e, val) => updateProportions('middle', val)}
           step={10}
           min={0}
@@ -92,7 +100,11 @@ const NoteProportion = ({ noteRatios, updateRatios }) => {
           {Content('en').pages.fragrances.noteProportions.botNote}
         </Typography>
         <CustomSlider
-          value={noteRatios.get('base')}
+          disabled={selectedIngredients.base.size === 0}
+          value={
+            selectedIngredients.base.size === 0 ? 0 :
+            noteRatios.get('base')
+          }
           onChange={(e, val) => updateProportions('base', val)}
           step={10}
           min={0}
